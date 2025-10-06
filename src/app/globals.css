@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Custom Dark Mode Palette */
+    --background: 210 11% 15%;           /* black-beauty #232729 */
+    --foreground: 0 0% 85%;              /* silver-setting #d9dada */
+
+    --card: 210 4% 28%;                  /* midnight-magic #47484a */
+    --card-foreground: 0 0% 85%;         /* silver-setting */
+
+    --popover: 210 4% 28%;               /* midnight-magic */
+    --popover-foreground: 0 0% 85%;      /* silver-setting */
+
+    --primary: 345 17% 63%;              /* coastal-vista #8194a1 */
+    --primary-foreground: 210 11% 15%;   /* black-beauty */
+
+    --secondary: 30 18% 68%;             /* frontier-fort #c3af9f */
+    --secondary-foreground: 210 11% 15%; /* black-beauty */
+
+    --muted: 205 9% 45%;                 /* stormy-weather #657079 */
+    --muted-foreground: 0 0% 75%;
+
+    --accent: 345 17% 63%;               /* coastal-vista */
+    --accent-foreground: 210 11% 15%;    /* black-beauty */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 205 9% 45%;                /* stormy-weather */
+    --input: 205 9% 45%;                 /* stormy-weather */
+    --ring: 345 17% 63%;                 /* coastal-vista */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
