@@ -144,3 +144,94 @@ export function useTodayStats() {
     refetch: fetchStats,
   };
 }
+
+export function useAvailableMonths() {
+  const [months, setMonths] = useState<Array<{ value: string; label: string }>>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchMonths = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch('/api/reports/available-months');
+      
+      if (response.status === 401) {
+        throw new Error('Autenticación requerida');
+      }
+      
+      const result: APIResponse<Array<{ value: string; label: string }>> = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al obtener meses disponibles');
+      }
+
+      setMonths(result.data || []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ocurrió un error');
+      setMonths([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchMonths();
+  }, [fetchMonths]);
+
+  return {
+    months,
+    loading,
+    error,
+    refetch: fetchMonths,
+  };
+}
+
+export function useDailyRevenue(month?: string) {
+  const [data, setData] = useState<Array<{ date: string; revenue: number }>>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = useCallback(async () => {
+    if (!month) return;
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      const params = new URLSearchParams();
+      params.set('month', month);
+
+      const response = await fetch(`/api/reports/daily-revenue?${params.toString()}`);
+      
+      if (response.status === 401) {
+        throw new Error('Autenticación requerida');
+      }
+      
+      const result: APIResponse<Array<{ date: string; revenue: number }>> = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al obtener datos de ingresos diarios');
+      }
+
+      setData(result.data || []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ocurrió un error');
+      setData([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [month]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return {
+    data,
+    loading,
+    error,
+    refetch: fetchData,
+  };
+}

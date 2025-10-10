@@ -20,7 +20,7 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
   const isDark = theme === 'dark';
 
   useEffect(() => {
-    if (!chartContainerRef.current) return;
+    if (!chartContainerRef.current || !data || data.length === 0) return;
 
     const chart = createChart(chartContainerRef.current, {
       layout: {
@@ -30,8 +30,11 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
         },
         textColor: isDark ? '#ffffff' : '#333333', // bright-white or dark gray
       },
-      width: chartContainerRef.current.clientWidth,
-      height: 300,
+      leftPriceScale: {
+        visible: false,
+      },
+      width: chartContainerRef.current.clientWidth - 16, // Account for padding
+      height: 272, // 288px (h-72) - 16px padding
       grid: {
         vertLines: { 
           color: isDark ? '#404040' : '#f0f0f0', // slate-gray
@@ -50,6 +53,10 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
         borderColor: isDark ? '#404040' : '#e0e0e0',
         timeVisible: true,
         secondsVisible: false,
+        rightOffset: 12,
+        barSpacing: 6,
+        fixLeftEdge: true,
+        fixRightEdge: true,
       },
       crosshair: {
         mode: 1,
@@ -64,27 +71,31 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
       },
     });
 
-    const areaSeries = (chart as any).addAreaSeries({
-      lineColor: isDark ? '#00d9ff' : '#22c55e', // neon-cyan or green
-      topColor: isDark ? 'rgba(0, 217, 255, 0.4)' : 'rgba(34, 197, 94, 0.4)',
-      bottomColor: isDark ? 'rgba(0, 217, 255, 0.0)' : 'rgba(34, 197, 94, 0.0)',
-      lineWidth: 2,
-    });
+    try {
+      const areaSeries = chart.addAreaSeries({
+        lineColor: isDark ? '#00d9ff' : '#22c55e', // neon-cyan or green
+        topColor: isDark ? 'rgba(0, 217, 255, 0.4)' : 'rgba(34, 197, 94, 0.4)',
+        bottomColor: isDark ? 'rgba(0, 217, 255, 0.0)' : 'rgba(34, 197, 94, 0.0)',
+        lineWidth: 2,
+      });
 
-    // Transform data to lightweight-charts format
-    const chartData = data.map(item => ({
-      time: item.date, // Format: 'YYYY-MM-DD'
-      value: item.revenue,
-    }));
+      // Transform data to lightweight-charts format
+      const chartData = data.map(item => ({
+        time: item.date, // Format: 'YYYY-MM-DD'
+        value: item.revenue,
+      }));
 
-    areaSeries.setData(chartData);
-    chart.timeScale().fitContent();
+      areaSeries.setData(chartData);
+      chart.timeScale().fitContent();
+    } catch (error) {
+      console.error('Error creating chart series:', error);
+    }
 
     // Handle resize
     const handleResize = () => {
       if (chartContainerRef.current) {
         chart.applyOptions({ 
-          width: chartContainerRef.current.clientWidth 
+          width: chartContainerRef.current.clientWidth - 16 // Account for padding
         });
       }
     };
@@ -100,7 +111,8 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
   return (
     <div 
       ref={chartContainerRef} 
-      className={`w-full rounded-lg overflow-hidden border border-slate-gray/30 ${className}`}
+      className={`w-full rounded-lg border border-slate-gray/30 ${className}`}
+      style={{ padding: '8px' }}
     />
   );
 }

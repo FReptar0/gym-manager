@@ -121,9 +121,15 @@ export async function GET(request: NextRequest) {
     }
 
     // Calculate growth percentages
-    const revenueGrowth = previousMonthRevenue > 0 
-      ? ((totalRevenue - previousMonthRevenue) / previousMonthRevenue) * 100 
-      : 0;
+    let revenueGrowth = 0;
+    if (previousMonthRevenue > 0) {
+      // Normal case: calculate percentage change
+      revenueGrowth = ((totalRevenue - previousMonthRevenue) / previousMonthRevenue) * 100;
+    } else if (totalRevenue > 0) {
+      // First month with data: show as 100% growth from zero
+      revenueGrowth = 100;
+    }
+    // If both are 0, growth remains 0
 
     // Previous month new clients for comparison
     const { count: prevMonthNewClients } = await supabase
@@ -134,9 +140,15 @@ export async function GET(request: NextRequest) {
       .eq('is_deleted', false)
       .neq('id', GUEST_CLIENT_ID);
 
-    const clientGrowth = (prevMonthNewClients || 0) > 0 
-      ? (((newClientsCount || 0) - (prevMonthNewClients || 0)) / (prevMonthNewClients || 0)) * 100 
-      : 0;
+    let clientGrowth = 0;
+    if ((prevMonthNewClients || 0) > 0) {
+      // Normal case: calculate percentage change
+      clientGrowth = (((newClientsCount || 0) - (prevMonthNewClients || 0)) / (prevMonthNewClients || 0)) * 100;
+    } else if ((newClientsCount || 0) > 0) {
+      // First month with data: show as 100% growth from zero
+      clientGrowth = 100;
+    }
+    // If both are 0, growth remains 0
 
     const stats = {
       total_revenue: totalRevenue,
