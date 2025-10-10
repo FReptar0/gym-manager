@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   Payment, 
   PaymentWithDetails, 
@@ -31,7 +31,7 @@ export function usePayments(options: UsePaymentsOptions = {}) {
     has_prev: false,
   });
 
-  const fetchPayments = async () => {
+  const fetchPayments = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -65,10 +65,6 @@ export function usePayments(options: UsePaymentsOptions = {}) {
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchPayments();
   }, [
     options.filters?.client_id,
     options.filters?.plan_id,
@@ -82,6 +78,10 @@ export function usePayments(options: UsePaymentsOptions = {}) {
     options.sort_by,
     options.sort_order,
   ]);
+
+  useEffect(() => {
+    fetchPayments();
+  }, [fetchPayments]);
 
   return {
     payments,
@@ -97,7 +97,7 @@ export function useClientPayments(clientId: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchClientPayments = async () => {
+  const fetchClientPayments = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -116,13 +116,13 @@ export function useClientPayments(clientId: string) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clientId]);
 
   useEffect(() => {
     if (clientId) {
       fetchClientPayments();
     }
-  }, [clientId]);
+  }, [clientId, fetchClientPayments]);
 
   return {
     payments,

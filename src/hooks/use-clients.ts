@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { 
   Client, 
@@ -32,7 +32,7 @@ export function useClients(options: UseClientsOptions = {}) {
     has_prev: false,
   });
 
-  const fetchClients = async () => {
+  const fetchClients = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -68,10 +68,6 @@ export function useClients(options: UseClientsOptions = {}) {
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchClients();
   }, [
     options.filters?.search,
     options.filters?.status,
@@ -82,6 +78,10 @@ export function useClients(options: UseClientsOptions = {}) {
     options.sort_by,
     options.sort_order,
   ]);
+
+  useEffect(() => {
+    fetchClients();
+  }, [fetchClients]);
 
   return {
     clients,
@@ -97,7 +97,7 @@ export function useClient(id: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchClient = async () => {
+  const fetchClient = useCallback(async () => {
     if (!id) return;
 
     try {
@@ -123,11 +123,11 @@ export function useClient(id: string) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchClient();
-  }, [id]);
+  }, [fetchClient]);
 
   return {
     client,

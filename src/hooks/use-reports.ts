@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { DashboardStats, RevenueStats, APIResponse } from '@/types';
 import { getCurrentMonth } from '@/lib/utils/date';
 
@@ -11,7 +11,7 @@ export function useDashboardStats(month?: string) {
 
   const currentMonth = month || getCurrentMonth();
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -39,11 +39,11 @@ export function useDashboardStats(month?: string) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentMonth]);
 
   useEffect(() => {
     fetchStats();
-  }, [currentMonth]);
+  }, [fetchStats]);
 
   return {
     stats,
@@ -60,7 +60,7 @@ export function useRevenueStats(month?: string) {
 
   const currentMonth = month || getCurrentMonth();
 
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -88,11 +88,11 @@ export function useRevenueStats(month?: string) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentMonth]);
 
   useEffect(() => {
     fetchStats();
-  }, [currentMonth]);
+  }, [fetchStats]);
 
   return {
     stats,

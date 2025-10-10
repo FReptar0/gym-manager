@@ -65,12 +65,12 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
     if (file) {
       // Validate file
       if (file.size > 2 * 1024 * 1024) {
-        alert('File size must be less than 2MB');
+        alert('El archivo debe ser menor a 2MB');
         return;
       }
       
       if (!['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type)) {
-        alert('Only JPEG, PNG, and WebP images are allowed');
+        alert('Solo se permiten imágenes JPEG, PNG y WebP');
         return;
       }
 
@@ -115,7 +115,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       onSuccess(savedClient);
     } catch (error) {
       console.error('Error saving client:', error);
-      alert(error instanceof Error ? error.message : 'Failed to save client');
+      alert(error instanceof Error ? error.message : 'Error al guardar el cliente');
     } finally {
       setLoading(false);
     }
@@ -135,7 +135,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       {/* Photo Upload */}
       <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-bright-white">Photo</CardTitle>
+          <CardTitle className="text-bright-white">Foto</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center gap-4">
@@ -152,7 +152,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
                   <Button type="button" variant="outline" size="sm" asChild>
                     <span className="border-slate-gray text-light-gray hover:bg-slate-gray/10">
                       <Camera className="h-4 w-4 mr-2" />
-                      {photoPreview ? 'Change' : 'Upload'}
+                      {photoPreview ? 'Cambiar' : 'Subir'}
                     </span>
                   </Button>
                 </Label>
@@ -176,7 +176,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
                 className="hidden"
               />
               <p className="text-xs text-light-gray mt-1">
-                JPG, PNG or WebP. Max 2MB.
+                JPG, PNG o WebP. Máximo 2MB.
               </p>
             </div>
           </div>
@@ -186,18 +186,18 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       {/* Basic Information */}
       <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-bright-white">Basic Information</CardTitle>
+          <CardTitle className="text-bright-white">Información Básica</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
             <Label htmlFor="full_name" className="text-bright-white">
-              Full Name <span className="text-red-400">*</span>
+              Nombre Completo <span className="text-red-400">*</span>
             </Label>
             <Input
               id="full_name"
               {...register('full_name')}
               className="bg-steel-gray border-slate-gray text-bright-white"
-              placeholder="Enter full name"
+              placeholder="Ingresa el nombre completo"
             />
             {errors.full_name && (
               <p className="text-red-400 text-sm mt-1">{errors.full_name.message}</p>
@@ -206,7 +206,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
 
           <div>
             <Label htmlFor="phone" className="text-bright-white">
-              Phone <span className="text-red-400">*</span>
+              Teléfono <span className="text-red-400">*</span>
             </Label>
             <Input
               id="phone"
@@ -221,13 +221,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="email" className="text-bright-white">Email</Label>
+            <Label htmlFor="email" className="text-bright-white">Correo Electrónico</Label>
             <Input
               id="email"
               type="email"
               {...register('email')}
               className="bg-steel-gray border-slate-gray text-bright-white"
-              placeholder="email@example.com"
+              placeholder="correo@ejemplo.com"
             />
             {errors.email && (
               <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
@@ -236,7 +236,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="birth_date" className="text-bright-white">Birth Date</Label>
+              <Label htmlFor="birth_date" className="text-bright-white">Fecha de Nacimiento</Label>
               <Input
                 id="birth_date"
                 type="date"
@@ -249,13 +249,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
             </div>
 
             <div>
-              <Label className="text-bright-white">Gender</Label>
+              <Label className="text-bright-white">Género</Label>
               <Select value={selectedGender} onValueChange={(value) => setValue('gender', value as any)}>
                 <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
-                  <SelectValue placeholder="Select gender" />
+                  <SelectValue placeholder="Selecciona el género" />
                 </SelectTrigger>
                 <SelectContent className="bg-midnight-magic border-slate-gray">
-                  <SelectItem value="not_specified" className="text-bright-white">Not specified</SelectItem>
+                  <SelectItem value="not_specified" className="text-bright-white">No especificado</SelectItem>
                   {GENDER_OPTIONS.map((option) => (
                     <SelectItem
                       key={option.value}
@@ -271,13 +271,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           </div>
 
           <div>
-            <Label className="text-bright-white">Blood Type</Label>
+            <Label className="text-bright-white">Tipo de Sangre</Label>
             <Select value={selectedBloodType} onValueChange={(value) => setValue('blood_type', value as any)}>
               <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
-                <SelectValue placeholder="Select blood type" />
+                <SelectValue placeholder="Selecciona tipo de sangre" />
               </SelectTrigger>
               <SelectContent className="bg-midnight-magic border-slate-gray">
-                <SelectItem value="not_specified" className="text-bright-white">Not specified</SelectItem>
+                <SelectItem value="not_specified" className="text-bright-white">No especificado</SelectItem>
                 {BLOOD_TYPES.map((type) => (
                   <SelectItem
                     key={type}
@@ -335,18 +335,18 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       {/* Medical Information */}
       <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-bright-white">Medical Information</CardTitle>
+          <CardTitle className="text-bright-white">Información Médica</CardTitle>
         </CardHeader>
         <CardContent>
           <div>
             <Label htmlFor="medical_conditions" className="text-bright-white">
-              Medical Conditions
+              Condiciones Médicas
             </Label>
             <Textarea
               id="medical_conditions"
               {...register('medical_conditions')}
               className="bg-steel-gray border-slate-gray text-bright-white"
-              placeholder="Any medical conditions, allergies, or health notes..."
+              placeholder="Cualquier condición médica, alergias o notas de salud..."
               rows={3}
             />
             {errors.medical_conditions && (
@@ -359,18 +359,18 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       {/* Emergency Contact */}
       <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-bright-white">Emergency Contact</CardTitle>
+          <CardTitle className="text-bright-white">Contacto de Emergencia</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
             <Label htmlFor="emergency_contact_name" className="text-bright-white">
-              Contact Name
+              Nombre del Contacto
             </Label>
             <Input
               id="emergency_contact_name"
               {...register('emergency_contact_name')}
               className="bg-steel-gray border-slate-gray text-bright-white"
-              placeholder="Emergency contact full name"
+              placeholder="Nombre completo del contacto de emergencia"
             />
             {errors.emergency_contact_name && (
               <p className="text-red-400 text-sm mt-1">{errors.emergency_contact_name.message}</p>
@@ -379,7 +379,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
 
           <div>
             <Label htmlFor="emergency_contact_phone" className="text-bright-white">
-              Contact Phone
+              Teléfono del Contacto
             </Label>
             <Input
               id="emergency_contact_phone"
@@ -404,14 +404,14 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           className="flex-1 border-slate-gray text-light-gray hover:bg-slate-gray/10"
           disabled={loading}
         >
-          Cancel
+          Cancelar
         </Button>
         <Button
           type="submit"
           className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
           disabled={loading}
         >
-          {loading ? 'Saving...' : client ? 'Update Client' : 'Create Client'}
+          {loading ? 'Guardando...' : client ? 'Actualizar Cliente' : 'Crear Cliente'}
         </Button>
       </div>
     </form>

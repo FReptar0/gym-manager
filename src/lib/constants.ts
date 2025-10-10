@@ -22,9 +22,9 @@ export const CLIENT_STATUSES = {
 } as const;
 
 export const CLIENT_STATUS_LABELS = {
-  [CLIENT_STATUSES.ACTIVE]: 'Active',
-  [CLIENT_STATUSES.FROZEN]: 'Expired',
-  [CLIENT_STATUSES.INACTIVE]: 'Inactive',
+  [CLIENT_STATUSES.ACTIVE]: 'Activo',
+  [CLIENT_STATUSES.FROZEN]: 'Vencido',
+  [CLIENT_STATUSES.INACTIVE]: 'Inactivo',
 } as const;
 
 // Payment methods
@@ -34,8 +34,8 @@ export const PAYMENT_METHODS = {
 } as const;
 
 export const PAYMENT_METHOD_LABELS = {
-  [PAYMENT_METHODS.CASH]: 'Cash',
-  [PAYMENT_METHODS.TRANSFER]: 'Transfer',
+  [PAYMENT_METHODS.CASH]: 'Efectivo',
+  [PAYMENT_METHODS.TRANSFER]: 'Transferencia',
 } as const;
 
 // Blood types
@@ -45,21 +45,21 @@ export const BLOOD_TYPES = [
 
 // Gender options
 export const GENDER_OPTIONS = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-  { value: 'other', label: 'Other' },
-  { value: 'prefer_not_to_say', label: 'Prefer not to say' },
+  { value: 'male', label: 'Masculino' },
+  { value: 'female', label: 'Femenino' },
+  { value: 'other', label: 'Otro' },
+  { value: 'prefer_not_to_say', label: 'Prefiero no decir' },
 ] as const;
 
 // Plan durations (for quick selection)
 export const COMMON_PLAN_DURATIONS = [
-  { label: 'Daily', days: 1 },
-  { label: 'Weekly', days: 7 },
-  { label: 'Bi-weekly', days: 14 },
-  { label: 'Monthly', days: 30 },
-  { label: 'Quarterly', days: 90 },
-  { label: 'Semi-annual', days: 180 },
-  { label: 'Annual', days: 365 },
+  { label: 'Diario', days: 1 },
+  { label: 'Semanal', days: 7 },
+  { label: 'Quincenal', days: 14 },
+  { label: 'Mensual', days: 30 },
+  { label: 'Trimestral', days: 90 },
+  { label: 'Semestral', days: 180 },
+  { label: 'Anual', days: 365 },
 ] as const;
 
 // Alert thresholds
@@ -105,7 +105,7 @@ export const STATUS_BADGE_CONFIG = {
   active: {
     color: 'green',
     icon: '🟢',
-    label: 'Active',
+    label: 'Activo',
     bgClass: 'bg-green-500/10',
     textClass: 'text-green-400',
     borderClass: 'border-green-500/30',
@@ -114,7 +114,7 @@ export const STATUS_BADGE_CONFIG = {
   frozen: {
     color: 'red',
     icon: '🔴',
-    label: 'Expired',
+    label: 'Vencido',
     bgClass: 'bg-red-500/10',
     textClass: 'text-red-400',
     borderClass: 'border-red-500/30',
@@ -123,7 +123,7 @@ export const STATUS_BADGE_CONFIG = {
   expiring_soon: {
     color: 'yellow',
     icon: '🟡',
-    label: 'Expiring Soon',
+    label: 'Próximo a Vencer',
     bgClass: 'bg-yellow-500/10',
     textClass: 'text-yellow-400',
     borderClass: 'border-yellow-500/30',
@@ -132,7 +132,7 @@ export const STATUS_BADGE_CONFIG = {
   inactive: {
     color: 'gray',
     icon: '⚪',
-    label: 'Inactive',
+    label: 'Inactivo',
     bgClass: 'bg-stormy-weather/10',
     textClass: 'text-stormy-weather',
     borderClass: 'border-stormy-weather/30',
@@ -142,10 +142,10 @@ export const STATUS_BADGE_CONFIG = {
 
 // Navigation items
 export const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Home', icon: 'Home' },
-  { href: '/dashboard/clients', label: 'Clients', icon: 'Users' },
-  { href: '/dashboard/payments', label: 'Payments', icon: 'DollarSign' },
-  { href: '/dashboard/reports', label: 'Reports', icon: 'BarChart3' },
+  { href: '/dashboard', label: 'Inicio', icon: 'Home' },
+  { href: '/dashboard/clients', label: 'Clientes', icon: 'Users' },
+  { href: '/dashboard/payments', label: 'Pagos', icon: 'DollarSign' },
+  { href: '/dashboard/reports', label: 'Reportes', icon: 'BarChart3' },
 ] as const;
 
 // Form field configurations
@@ -153,7 +153,7 @@ export const FORM_FIELD_CONFIGS = {
   CLIENT_NAME: {
     minLength: 2,
     maxLength: 200,
-    placeholder: 'Enter full name',
+    placeholder: 'Ingresa el nombre completo',
   },
   PHONE: {
     length: 10,
@@ -161,12 +161,12 @@ export const FORM_FIELD_CONFIGS = {
     pattern: '[0-9]{10}',
   },
   EMAIL: {
-    placeholder: 'email@example.com',
+    placeholder: 'correo@ejemplo.com',
   },
   PLAN_NAME: {
     minLength: 2,
     maxLength: 100,
-    placeholder: 'Enter plan name',
+    placeholder: 'Ingresa el nombre del plan',
   },
   PRICE: {
     min: 0.01,
@@ -177,7 +177,7 @@ export const FORM_FIELD_CONFIGS = {
   DURATION: {
     min: 1,
     max: 1825, // 5 years
-    placeholder: 'Days',
+    placeholder: 'Días',
   },
 } as const;
 

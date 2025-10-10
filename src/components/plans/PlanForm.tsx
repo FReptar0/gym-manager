@@ -284,7 +284,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-green-400" />
                   <p className="text-green-400 text-sm font-medium">
-                    {getSavingsText() && getSavingsText().replace('savings vs daily rate', 'descuento vs tarifa diaria')}
+                    {getSavingsText()?.replace('savings vs daily rate', 'descuento vs tarifa diaria')}
                   </p>
                 </div>
               </div>

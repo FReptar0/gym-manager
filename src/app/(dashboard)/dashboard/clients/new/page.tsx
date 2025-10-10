@@ -18,7 +18,7 @@ export default function NewClientPage() {
 
   return (
     <div className="min-h-screen bg-black-beauty">
-      <TopBar title="New Client" showBack />
+      <TopBar title="Nuevo Cliente" showBack />
 
       <div className="p-4 max-w-2xl mx-auto">
         <ClientForm

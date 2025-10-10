@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Plan, PlanWithStats, APIResponse } from '@/types';
 
 interface UsePlansOptions {
@@ -12,7 +12,7 @@ export function usePlans(options: UsePlansOptions = {}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPlans = async () => {
+  const fetchPlans = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -34,11 +34,11 @@ export function usePlans(options: UsePlansOptions = {}) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [options.includeInactive]);
 
   useEffect(() => {
     fetchPlans();
-  }, [options.includeInactive]);
+  }, [fetchPlans]);
 
   return {
     plans,
@@ -53,7 +53,7 @@ export function usePlan(id: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPlan = async () => {
+  const fetchPlan = useCallback(async () => {
     if (!id) return;
 
     try {
@@ -74,11 +74,11 @@ export function usePlan(id: string) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchPlan();
-  }, [id]);
+  }, [fetchPlan]);
 
   return {
     plan,
