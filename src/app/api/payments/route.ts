@@ -117,16 +117,16 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Get client and plan information
-    const { data: client, error: clientError } = await supabase
-      .from('clients')
+    const { data: client, error: clientError } = await (supabase
+      .from('clients') as any)
       .select('id, last_payment_date, expiration_date, status')
       .eq('id', body.client_id)
       .single();
 
     if (clientError) throw clientError;
 
-    const { data: plan, error: planError } = await supabase
-      .from('plans')
+    const { data: plan, error: planError } = await (supabase
+      .from('plans') as any)
       .select('id, duration_days, name')
       .eq('id', body.plan_id)
       .single();
@@ -141,8 +141,8 @@ export async function POST(request: NextRequest) {
     );
 
     // Start transaction
-    const { data: payment, error: paymentError } = await supabase
-      .from('payments')
+    const { data: payment, error: paymentError } = await (supabase
+      .from('payments') as any)
       .insert([{
         client_id: body.client_id,
         plan_id: body.plan_id,
@@ -160,8 +160,8 @@ export async function POST(request: NextRequest) {
 
     // Update client record (only if not guest client)
     if (body.client_id !== '00000000-0000-0000-0000-000000000001') {
-      const { error: updateError } = await supabase
-        .from('clients')
+      const { error: updateError } = await (supabase
+        .from('clients') as any)
         .update({
           last_payment_date: body.payment_date,
           expiration_date: period_end,

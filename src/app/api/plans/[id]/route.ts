@@ -59,8 +59,8 @@ export async function PUT(
     // Validate input
     const validatedData = planSchema.parse(body);
     
-    const { data, error } = await supabase
-      .from('plans')
+    const { data, error } = await (supabase
+      .from('plans') as any)
       .update(validatedData)
       .eq('id', id)
       .select()
@@ -115,8 +115,8 @@ export async function DELETE(
     }
 
     // Deactivate plan instead of deleting
-    const { data, error } = await supabase
-      .from('plans')
+    const { data, error } = await (supabase
+      .from('plans') as any)
       .update({ is_active: false })
       .eq('id', id)
       .select()

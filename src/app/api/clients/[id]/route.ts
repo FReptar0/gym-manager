@@ -59,8 +59,8 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
     
-    const { data, error } = await supabase
-      .from('clients')
+    const { data, error } = await (supabase
+      .from('clients') as any)
       .update({
         full_name: body.full_name,
         phone: body.phone,
@@ -128,8 +128,8 @@ export async function DELETE(
     }
 
     // Soft delete by setting is_deleted = true
-    const { data, error } = await supabase
-      .from('clients')
+    const { data, error } = await (supabase
+      .from('clients') as any)
       .update({ is_deleted: true })
       .eq('id', id)
       .eq('is_deleted', false)

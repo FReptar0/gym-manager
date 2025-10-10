@@ -53,8 +53,8 @@ export async function POST(request: NextRequest) {
     // Validate input
     const validatedData = planSchema.parse(body);
     
-    const { data, error } = await supabase
-      .from('plans')
+    const { data, error } = await (supabase
+      .from('plans') as any)
       .insert([validatedData])
       .select()
       .single();

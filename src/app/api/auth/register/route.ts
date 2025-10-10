@@ -58,15 +58,17 @@ export async function POST(request: NextRequest) {
 
     // Manually create user profile since trigger might not exist
     if (user.user?.id) {
-      const { error: profileError } = await supabase
-        .from('user_profiles')
-        .insert([{
-          id: user.user.id,
-          full_name: validatedData.full_name,
-          email: validatedData.email,
-          role: 'gym_admin',
-          is_active: true,
-        }]);
+      const profileData = {
+        id: user.user.id,
+        full_name: validatedData.full_name,
+        email: validatedData.email,
+        role: 'gym_admin' as const,
+        is_active: true,
+      };
+      
+      const { error: profileError } = await (supabase
+        .from('user_profiles') as any)
+        .insert(profileData);
 
       if (profileError) {
         console.error('Profile creation error:', profileError);
@@ -89,7 +91,7 @@ export async function POST(request: NextRequest) {
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Validation failed', details: error.errors },
+        { error: 'Validation failed', details: error.issues },
         { status: 400 }
       );
     }

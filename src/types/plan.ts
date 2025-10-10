@@ -4,14 +4,7 @@ export type Plan = Database['public']['Tables']['plans']['Row'];
 export type PlanInsert = Database['public']['Tables']['plans']['Insert'];
 export type PlanUpdate = Database['public']['Tables']['plans']['Update'];
 
-// Plan form data type
-export interface PlanFormData {
-  name: string;
-  duration_days: number;
-  price: number;
-  description?: string;
-  is_active?: boolean;
-}
+// Plan form data type is imported from validation schema
 
 // Plan with usage statistics
 export interface PlanWithStats extends Plan {

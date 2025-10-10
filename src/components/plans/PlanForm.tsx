@@ -48,15 +48,17 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
     watch,
     formState: { errors },
   } = useForm<PlanFormData>({
-    resolver: zodResolver(planSchema),
+    resolver: zodResolver(planSchema) as any,
     defaultValues: plan ? {
       name: plan.name,
       duration_days: plan.duration_days,
       price: plan.price,
       description: plan.description || '',
+      is_active: plan.is_active,
     } : {
       duration_days: 30,
       price: 500,
+      is_active: true,
     },
   });
 

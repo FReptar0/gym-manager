@@ -21,8 +21,8 @@ export async function GET(request: NextRequest) {
     const { start: monthStart, end: monthEnd } = getMonthDateRange(year, month);
 
     // Daily revenue trend
-    const { data: dailyRevenue } = await supabase
-      .from('payments')
+    const { data: dailyRevenue } = await (supabase
+      .from('payments') as any)
       .select('payment_date, amount')
       .gte('payment_date', monthStart)
       .lte('payment_date', monthEnd)
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
     // Group by date
     const dailyRevenueMap = new Map<string, { revenue: number; count: number }>();
-    dailyRevenue?.forEach(payment => {
+    dailyRevenue?.forEach((payment: any) => {
       const date = payment.payment_date;
       const existing = dailyRevenueMap.get(date) || { revenue: 0, count: 0 };
       dailyRevenueMap.set(date, {
@@ -46,8 +46,8 @@ export async function GET(request: NextRequest) {
     }));
 
     // Revenue by plan type
-    const { data: revenueByPlan } = await supabase
-      .from('payments')
+    const { data: revenueByPlan } = await (supabase
+      .from('payments') as any)
       .select(`
         amount,
         plan:plan_id(name)
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
       .lte('payment_date', monthEnd);
 
     const planRevenueMap = new Map<string, { revenue: number; count: number }>();
-    revenueByPlan?.forEach(payment => {
+    revenueByPlan?.forEach((payment: any) => {
       // Handle both null plans and array edge cases
       const plan = Array.isArray(payment.plan) ? payment.plan[0] : payment.plan;
       const planName = plan?.name || 'Unknown';
@@ -74,14 +74,14 @@ export async function GET(request: NextRequest) {
     })).sort((a, b) => b.total_revenue - a.total_revenue);
 
     // Revenue by payment method
-    const { data: revenueByMethod } = await supabase
-      .from('payments')
+    const { data: revenueByMethod } = await (supabase
+      .from('payments') as any)
       .select('payment_method, amount')
       .gte('payment_date', monthStart)
       .lte('payment_date', monthEnd);
 
     const methodRevenueMap = new Map<string, { revenue: number; count: number }>();
-    revenueByMethod?.forEach(payment => {
+    revenueByMethod?.forEach((payment: any) => {
       const method = payment.payment_method;
       const existing = methodRevenueMap.get(method) || { revenue: 0, count: 0 };
       methodRevenueMap.set(method, {
@@ -97,7 +97,7 @@ export async function GET(request: NextRequest) {
     }));
 
     // Total summary
-    const totalRevenue = dailyRevenue?.reduce((sum, payment) => sum + payment.amount, 0) || 0;
+    const totalRevenue = dailyRevenue?.reduce((sum: number, payment: any) => sum + payment.amount, 0) || 0;
     const totalPayments = dailyRevenue?.length || 0;
 
     const data = {

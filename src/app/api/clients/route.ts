@@ -108,8 +108,8 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     
-    const { data, error } = await supabase
-      .from('clients')
+    const { data, error } = await (supabase
+      .from('clients') as any)
       .insert([{
         full_name: body.full_name,
         phone: body.phone,

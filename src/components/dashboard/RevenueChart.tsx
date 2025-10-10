@@ -64,7 +64,7 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
       },
     });
 
-    const areaSeries = chart.addAreaSeries({
+    const areaSeries = (chart as any).addAreaSeries({
       lineColor: isDark ? '#00d9ff' : '#22c55e', // neon-cyan or green
       topColor: isDark ? 'rgba(0, 217, 255, 0.4)' : 'rgba(34, 197, 94, 0.4)',
       bottomColor: isDark ? 'rgba(0, 217, 255, 0.0)' : 'rgba(34, 197, 94, 0.0)',

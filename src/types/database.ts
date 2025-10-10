@@ -192,6 +192,38 @@ export interface Database {
           created_at?: string;
         };
       };
+      user_profiles: {
+        Row: {
+          id: string;
+          full_name: string;
+          role: string;
+          email: string;
+          is_active: boolean;
+          last_login: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          full_name: string;
+          role?: string;
+          email: string;
+          is_active?: boolean;
+          last_login?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          full_name?: string;
+          role?: string;
+          email?: string;
+          is_active?: boolean;
+          last_login?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
     };
   };
 }

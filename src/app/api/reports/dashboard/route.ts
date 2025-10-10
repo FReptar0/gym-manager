@@ -28,26 +28,26 @@ export async function GET(request: NextRequest) {
     const { start: prevMonthStart, end: prevMonthEnd } = getMonthDateRange(prevYear, prevMonth);
 
     // Current month revenue
-    const { data: currentRevenue } = await supabase
-      .from('payments')
+    const { data: currentRevenue } = await (supabase
+      .from('payments') as any)
       .select('amount')
       .gte('payment_date', monthStart)
       .lte('payment_date', monthEnd);
 
-    const totalRevenue = currentRevenue?.reduce((sum, payment) => sum + payment.amount, 0) || 0;
+    const totalRevenue = currentRevenue?.reduce((sum: number, payment: any) => sum + payment.amount, 0) || 0;
 
     // Previous month revenue for comparison
-    const { data: previousRevenue } = await supabase
-      .from('payments')
+    const { data: previousRevenue } = await (supabase
+      .from('payments') as any)
       .select('amount')
       .gte('payment_date', prevMonthStart)
       .lte('payment_date', prevMonthEnd);
 
-    const previousMonthRevenue = previousRevenue?.reduce((sum, payment) => sum + payment.amount, 0) || 0;
+    const previousMonthRevenue = previousRevenue?.reduce((sum: number, payment: any) => sum + payment.amount, 0) || 0;
 
     // Active clients with their plans for projection calculation
-    const { data: activeClients } = await supabase
-      .from('clients')
+    const { data: activeClients } = await (supabase
+      .from('clients') as any)
       .select(`
         id,
         current_plan_id,
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
     // Calculate projected revenue
     let projectedRevenue = 0;
     if (activeClients) {
-      projectedRevenue = activeClients.reduce((sum, client) => {
+      projectedRevenue = activeClients.reduce((sum: number, client: any) => {
         // Handle both null plans and array edge cases
         const plan = Array.isArray(client.plan) ? client.plan[0] : client.plan;
         if (plan && plan.price && plan.duration_days) {
@@ -76,16 +76,16 @@ export async function GET(request: NextRequest) {
     }
 
     // Client counts
-    const { count: activeClientsCount } = await supabase
-      .from('clients')
+    const { count: activeClientsCount } = await (supabase
+      .from('clients') as any)
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active')
       .eq('is_deleted', false)
       .neq('id', GUEST_CLIENT_ID);
 
     // New clients this month
-    const { count: newClientsCount } = await supabase
-      .from('clients')
+    const { count: newClientsCount } = await (supabase
+      .from('clients') as any)
       .select('*', { count: 'exact', head: true })
       .gte('registration_date', monthStart)
       .lte('registration_date', monthEnd)
@@ -93,8 +93,8 @@ export async function GET(request: NextRequest) {
       .neq('id', GUEST_CLIENT_ID);
 
     // Churned clients (were active at start of month, now frozen/inactive, no payment this month)
-    const { data: churnedClientsData } = await supabase
-      .from('clients')
+    const { data: churnedClientsData } = await (supabase
+      .from('clients') as any)
       .select('id')
       .in('status', ['frozen', 'inactive'])
       .eq('is_deleted', false)
@@ -104,19 +104,19 @@ export async function GET(request: NextRequest) {
     // Filter out clients who made payments this month
     let churnedCount = 0;
     if (churnedClientsData) {
-      const clientsWithPayments = await supabase
-        .from('payments')
+      const clientsWithPayments = await (supabase
+        .from('payments') as any)
         .select('client_id')
-        .in('client_id', churnedClientsData.map(c => c.id))
+        .in('client_id', churnedClientsData.map((c: any) => c.id))
         .gte('payment_date', monthStart)
         .lte('payment_date', monthEnd);
 
       const clientsWithPaymentsIds = new Set(
-        clientsWithPayments.data?.map(p => p.client_id) || []
+        clientsWithPayments.data?.map((p: any) => p.client_id) || []
       );
 
       churnedCount = churnedClientsData.filter(
-        client => !clientsWithPaymentsIds.has(client.id)
+        (client: any) => !clientsWithPaymentsIds.has(client.id)
       ).length;
     }
 

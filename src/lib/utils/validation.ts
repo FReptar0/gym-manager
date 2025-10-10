@@ -86,7 +86,7 @@ export const planSchema = z.object({
     .max(500, 'La descripción no debe exceder 500 caracteres')
     .optional(),
 
-  is_active: z.boolean().default(true),
+  is_active: z.boolean().optional().default(true),
 });
 
 export type PlanFormData = z.infer<typeof planSchema>;
@@ -104,7 +104,7 @@ export const paymentSchema = z.object({
     .max(999999.99, 'El monto no debe exceder $999,999.99'),
 
   payment_method: z.enum(['cash', 'transfer'], {
-    required_error: 'El método de pago es requerido',
+    message: 'El método de pago es requerido',
   }),
 
   payment_date: z.string()
