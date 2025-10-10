@@ -137,18 +137,18 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                   key={preset.name}
                   type="button"
                   onClick={() => handlePresetSelect(preset)}
-                  className="p-3 text-left bg-black-beauty border border-stormy-weather/30 rounded-lg hover:border-coastal-vista/30 transition-colors"
+                  className="p-3 text-left bg-deep-black border border-slate-gray/30 rounded-lg hover:border-neon-cyan/30 transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-bright-white font-medium">{preset.name}</p>
-                      <p className="text-xs text-stormy-weather">{preset.description}</p>
+                      <p className="text-xs text-slate-gray">{preset.description}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-coastal-vista font-medium">
+                      <p className="text-neon-cyan font-medium">
                         {formatCurrency(preset.price)}
                       </p>
-                      <p className="text-xs text-stormy-weather">
+                      <p className="text-xs text-slate-gray">
                         {preset.duration_days} día{preset.duration_days > 1 ? 's' : ''}
                       </p>
                     </div>
@@ -176,7 +176,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
             <Input
               id="name"
               {...register('name')}
-              className="bg-black-beauty border-stormy-weather text-bright-white"
+              className="bg-deep-black border-slate-gray text-bright-white"
               placeholder="ej. Premium Mensual"
             />
             {errors.name && (
@@ -190,13 +190,13 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                 Duración (Días) <span className="text-red-400">*</span>
               </Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-gray" />
                 <Input
                   id="duration_days"
                   type="number"
                   min="1"
                   {...register('duration_days', { valueAsNumber: true })}
-                  className="pl-10 bg-black-beauty border-stormy-weather text-bright-white"
+                  className="pl-10 bg-deep-black border-slate-gray text-bright-white"
                   placeholder="30"
                 />
               </div>
@@ -210,14 +210,14 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                 Precio <span className="text-red-400">*</span>
               </Label>
               <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
+                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-gray" />
                 <Input
                   id="price"
                   type="number"
                   step="0.01"
                   min="0"
                   {...register('price', { valueAsNumber: true })}
-                  className="pl-10 bg-black-beauty border-stormy-weather text-bright-white"
+                  className="pl-10 bg-deep-black border-slate-gray text-bright-white"
                   placeholder="500.00"
                 />
               </div>
@@ -234,7 +234,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
             <Textarea
               id="description"
               {...register('description')}
-              className="bg-black-beauty border-stormy-weather text-bright-white"
+              className="bg-deep-black border-slate-gray text-bright-white"
               placeholder="Breve descripción de lo que incluye este plan..."
               rows={3}
             />
@@ -256,21 +256,21 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="text-center p-3 bg-black-beauty rounded-lg">
+              <div className="text-center p-3 bg-deep-black rounded-lg">
                 <p className="text-xs text-light-gray">Tarifa Diaria</p>
                 <p className="text-lg font-semibold text-bright-white">
                   {formatCurrency(getDailyRate())}
                 </p>
               </div>
               
-              <div className="text-center p-3 bg-black-beauty rounded-lg">
+              <div className="text-center p-3 bg-deep-black rounded-lg">
                 <p className="text-xs text-light-gray">Equivalente Mensual</p>
                 <p className="text-lg font-semibold text-bright-white">
                   {formatCurrency(getMonthlyEquivalent())}
                 </p>
               </div>
 
-              <div className="text-center p-3 bg-black-beauty rounded-lg col-span-2 md:col-span-1">
+              <div className="text-center p-3 bg-deep-black rounded-lg col-span-2 md:col-span-1">
                 <p className="text-xs text-light-gray">Duración</p>
                 <p className="text-lg font-semibold text-bright-white">
                   {watchedDuration} día{watchedDuration > 1 ? 's' : ''}
@@ -289,7 +289,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
               </div>
             )}
 
-            <div className="text-xs text-stormy-weather space-y-1">
+            <div className="text-xs text-slate-gray space-y-1">
               <p>• Comparación de tarifa diaria basada en $50/día estándar</p>
               <p>• El equivalente mensual ayuda a comparar diferentes duraciones</p>
               <p>• Los planes largos ofrecen mejor valor por día</p>
@@ -304,7 +304,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="flex-1 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+          className="flex-1 border-slate-gray text-slate-gray hover:bg-slate-gray/10"
           disabled={loading}
         >
           Cancelar

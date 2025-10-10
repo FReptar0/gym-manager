@@ -141,7 +141,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           <div className="flex items-center gap-4">
             <Avatar className="h-20 w-20 border-2 border-slate-gray/30">
               <AvatarImage src={photoPreview || undefined} />
-              <AvatarFallback className="bg-stormy-weather/20 text-bright-white text-lg">
+              <AvatarFallback className="bg-slate-gray/20 text-bright-white text-lg">
                 {watch('full_name') ? getInitials(watch('full_name')) : '?'}
               </AvatarFallback>
             </Avatar>
@@ -254,13 +254,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
                 <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                   <SelectValue placeholder="Selecciona el género" />
                 </SelectTrigger>
-                <SelectContent className="bg-midnight-magic border-slate-gray">
+                <SelectContent className="bg-carbon-gray border-slate-gray">
                   <SelectItem value="not_specified" className="text-bright-white">No especificado</SelectItem>
                   {GENDER_OPTIONS.map((option) => (
                     <SelectItem
                       key={option.value}
                       value={option.value}
-                      className="text-bright-white hover:bg-stormy-weather/20"
+                      className="text-bright-white hover:bg-slate-gray/20"
                     >
                       {option.label}
                     </SelectItem>
@@ -276,13 +276,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
               <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                 <SelectValue placeholder="Selecciona tipo de sangre" />
               </SelectTrigger>
-              <SelectContent className="bg-midnight-magic border-slate-gray">
+              <SelectContent className="bg-carbon-gray border-slate-gray">
                 <SelectItem value="not_specified" className="text-bright-white">No especificado</SelectItem>
                 {BLOOD_TYPES.map((type) => (
                   <SelectItem
                     key={type}
                     value={type}
-                    className="text-bright-white hover:bg-stormy-weather/20"
+                    className="text-bright-white hover:bg-slate-gray/20"
                   >
                     {type}
                   </SelectItem>
@@ -307,16 +307,16 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
               <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                 <SelectValue placeholder="Selecciona un plan" />
               </SelectTrigger>
-              <SelectContent className="bg-midnight-magic border-slate-gray">
+              <SelectContent className="bg-carbon-gray border-slate-gray">
                 {plans.filter(plan => plan.is_active).map((plan) => (
                   <SelectItem
                     key={plan.id}
                     value={plan.id}
-                    className="text-bright-white hover:bg-stormy-weather/20"
+                    className="text-bright-white hover:bg-slate-gray/20"
                   >
                     <div className="flex justify-between items-center w-full">
                       <span>{plan.name}</span>
-                      <span className="text-coastal-vista ml-2">${plan.price}</span>
+                      <span className="text-neon-cyan ml-2">${plan.price}</span>
                     </div>
                   </SelectItem>
                 ))}

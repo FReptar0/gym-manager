@@ -47,7 +47,7 @@ export default function ReportsPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-silver-setting">0</div>
+              <div className="text-2xl font-bold text-bright-white">0</div>
             </CardContent>
           </Card>
 
@@ -58,7 +58,7 @@ export default function ReportsPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-silver-setting">0%</div>
+              <div className="text-2xl font-bold text-bright-white">0%</div>
             </CardContent>
           </Card>
         </div>

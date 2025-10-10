@@ -17,7 +17,7 @@ export default function NewClientPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black-beauty">
+    <div className="min-h-screen bg-deep-black">
       <TopBar title="Nuevo Cliente" showBack />
 
       <div className="p-4 max-w-2xl mx-auto">

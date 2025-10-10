@@ -264,7 +264,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                   };
                   handleClientSelect(guestClient);
                 }}
-                className="w-full justify-start border-dashed border-coastal-vista/30 text-neon-cyan hover:bg-coastal-vista/10"
+                className="w-full justify-start border-dashed border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/10"
               >
                 <User className="h-4 w-4 mr-2" />
                 Invitado / Pago Diario
@@ -278,11 +278,11 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                       key={client.id}
                       type="button"
                       onClick={() => handleClientSelect(client)}
-                      className="w-full flex items-center gap-3 p-3 bg-steel-gray rounded-lg border border-slate-gray/30 hover:border-coastal-vista/30 transition-colors text-left"
+                      className="w-full flex items-center gap-3 p-3 bg-steel-gray rounded-lg border border-slate-gray/30 hover:border-neon-cyan/30 transition-colors text-left"
                     >
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={client.photo_url || undefined} />
-                        <AvatarFallback className="bg-stormy-weather/20 text-bright-white text-sm">
+                        <AvatarFallback className="bg-slate-gray/20 text-bright-white text-sm"
                           {getInitials(client.full_name)}
                         </AvatarFallback>
                       </Avatar>
@@ -322,7 +322,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                     <SelectItem
                       key={plan.id}
                       value={plan.id}
-                      className="text-bright-white hover:bg-stormy-weather/20"
+                      className="text-bright-white hover:bg-slate-gray/20"
                     >
                       <div className="flex items-center justify-between w-full">
                         <span>{plan.name}</span>
@@ -372,7 +372,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                       <SelectItem
                         key={value}
                         value={value}
-                        className="text-bright-white hover:bg-stormy-weather/20"
+                        className="text-bright-white hover:bg-slate-gray/20"
                       >
                         {label}
                       </SelectItem>
@@ -432,7 +432,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
               </div>
             </div>
             
-            <div className="p-3 bg-coastal-vista/10 border border-coastal-vista/30 rounded-lg">
+            <div className="p-3 bg-neon-cyan/10 border border-neon-cyan/30 rounded-lg">
               <p className="text-sm text-neon-cyan">
                 ✓ Esta membresía será válida por {selectedPlan.duration_days} días
                 {selectedClient.expiration_date && new Date(selectedClient.expiration_date) >= new Date() && (
@@ -459,7 +459,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
         </Button>
         <Button
           type="submit"
-          className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-black-beauty"
+          className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
           disabled={loading || !selectedClient || !selectedPlan}
         >
           {loading ? 'Procesando...' : `Registrar Pago${watchedAmount ? ` - ${formatCurrency(watchedAmount)}` : ''}`}

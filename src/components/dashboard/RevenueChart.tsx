@@ -26,48 +26,48 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
       layout: {
         background: { 
           type: ColorType.Solid, 
-          color: isDark ? '#47484a' : '#ffffff' // midnight-magic or white
+          color: isDark ? '#1a1a1a' : '#ffffff' // carbon-gray or white
         },
-        textColor: isDark ? '#d9dada' : '#333333', // silver-setting or dark gray
+        textColor: isDark ? '#ffffff' : '#333333', // bright-white or dark gray
       },
       width: chartContainerRef.current.clientWidth,
       height: 300,
       grid: {
         vertLines: { 
-          color: isDark ? '#657079' : '#f0f0f0', // stormy-weather
+          color: isDark ? '#404040' : '#f0f0f0', // slate-gray
           style: 1,
         },
         horzLines: { 
-          color: isDark ? '#657079' : '#f0f0f0',
+          color: isDark ? '#404040' : '#f0f0f0',
           style: 1,
         },
       },
       rightPriceScale: {
-        borderColor: isDark ? '#657079' : '#e0e0e0',
+        borderColor: isDark ? '#404040' : '#e0e0e0',
         autoScale: true,
       },
       timeScale: {
-        borderColor: isDark ? '#657079' : '#e0e0e0',
+        borderColor: isDark ? '#404040' : '#e0e0e0',
         timeVisible: true,
         secondsVisible: false,
       },
       crosshair: {
         mode: 1,
         vertLine: {
-          color: isDark ? '#8194a1' : '#9B9B9B', // coastal-vista
-          labelBackgroundColor: isDark ? '#8194a1' : '#9B9B9B',
+          color: isDark ? '#00d9ff' : '#9B9B9B', // neon-cyan
+          labelBackgroundColor: isDark ? '#00d9ff' : '#9B9B9B',
         },
         horzLine: {
-          color: isDark ? '#8194a1' : '#9B9B9B',
-          labelBackgroundColor: isDark ? '#8194a1' : '#9B9B9B',
+          color: isDark ? '#00d9ff' : '#9B9B9B',
+          labelBackgroundColor: isDark ? '#00d9ff' : '#9B9B9B',
         },
       },
     });
 
     const areaSeries = chart.addAreaSeries({
-      lineColor: isDark ? '#8194a1' : '#22c55e', // coastal-vista or green
-      topColor: isDark ? 'rgba(129, 148, 161, 0.4)' : 'rgba(34, 197, 94, 0.4)',
-      bottomColor: isDark ? 'rgba(129, 148, 161, 0.0)' : 'rgba(34, 197, 94, 0.0)',
+      lineColor: isDark ? '#00d9ff' : '#22c55e', // neon-cyan or green
+      topColor: isDark ? 'rgba(0, 217, 255, 0.4)' : 'rgba(34, 197, 94, 0.4)',
+      bottomColor: isDark ? 'rgba(0, 217, 255, 0.0)' : 'rgba(34, 197, 94, 0.0)',
       lineWidth: 2,
     });
 
@@ -100,7 +100,7 @@ export function RevenueChart({ data, className }: RevenueChartProps) {
   return (
     <div 
       ref={chartContainerRef} 
-      className={`w-full rounded-lg overflow-hidden border border-stormy-weather/30 ${className}`}
+      className={`w-full rounded-lg overflow-hidden border border-slate-gray/30 ${className}`}
     />
   );
 }

@@ -115,7 +115,7 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
                             ? "text-red-400" 
                             : daysUntilExpiration <= 3 
                             ? "text-yellow-400" 
-                            : "text-stormy-weather"
+                            : "text-slate-gray"
                         )}>
                           ({daysUntilExpiration >= 0 ? `${daysUntilExpiration}d left` : `${Math.abs(daysUntilExpiration)}d overdue`})
                         </span>

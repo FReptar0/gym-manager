@@ -91,13 +91,13 @@ export const DATE_FORMATS = {
 
 // Chart colors (dark mode optimized)
 export const CHART_COLORS = {
-  PRIMARY: '#8194a1',       // coastal-vista
-  SECONDARY: '#c3af9f',     // frontier-fort
+  PRIMARY: '#00d9ff',       // neon-cyan
+  SECONDARY: '#32ff7e',     // electric-lime
   SUCCESS: '#22c55e',
   DANGER: '#ef4444',
   WARNING: '#f59e0b',
   INFO: '#3b82f6',
-  MUTED: '#657079',         // stormy-weather
+  MUTED: '#404040',         // slate-gray
 } as const;
 
 // Status badge configurations
@@ -133,10 +133,10 @@ export const STATUS_BADGE_CONFIG = {
     color: 'gray',
     icon: '⚪',
     label: 'Inactivo',
-    bgClass: 'bg-stormy-weather/10',
-    textClass: 'text-stormy-weather',
-    borderClass: 'border-stormy-weather/30',
-    dotClass: 'bg-stormy-weather',
+    bgClass: 'bg-slate-gray/10',
+    textClass: 'text-slate-gray',
+    borderClass: 'border-slate-gray/30',
+    dotClass: 'bg-slate-gray',
   },
 } as const;
 

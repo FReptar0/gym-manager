@@ -267,8 +267,8 @@ export default function PaymentsPage() {
                     </div>
 
                     {payment.notes && (
-                      <div className="mt-3 pt-3 border-t border-stormy-weather/30">
-                        <p className="text-sm text-stormy-weather">{payment.notes}</p>
+                      <div className="mt-3 pt-3 border-t border-slate-gray/30">
+                        <p className="text-sm text-slate-gray">{payment.notes}</p>
                       </div>
                     )}
                   </CardContent>
@@ -297,7 +297,7 @@ export default function PaymentsPage() {
               )}
 
               {/* Pagination Info */}
-              <div className="text-center text-sm text-stormy-weather pt-2">
+              <div className="text-center text-sm text-slate-gray pt-2">
                 Mostrando {payments.length} de {pagination.total} pagos
               </div>
             </>

@@ -26,12 +26,12 @@ export default function EditClientPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black-beauty">
+      <div className="min-h-screen bg-deep-black">
         <TopBar title="Edit Client" showBack />
         <div className="p-4 flex items-center justify-center h-96">
           <div className="text-center">
-            <Loader2 className="h-8 w-8 animate-spin mx-auto text-coastal-vista" />
-            <p className="text-stormy-weather mt-2">Loading client...</p>
+            <Loader2 className="h-8 w-8 animate-spin mx-auto text-neon-cyan" />
+            <p className="text-slate-gray mt-2">Loading client...</p>
           </div>
         </div>
       </div>
@@ -40,17 +40,17 @@ export default function EditClientPage() {
 
   if (error || !client) {
     return (
-      <div className="min-h-screen bg-black-beauty">
+      <div className="min-h-screen bg-deep-black">
         <TopBar title="Edit Client" showBack />
         <div className="p-4 max-w-2xl mx-auto">
-          <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
+          <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
             <p className="text-red-400">Failed to load client</p>
-            <p className="text-sm text-stormy-weather/70 mt-2">{error || 'Client not found'}</p>
+            <p className="text-sm text-slate-gray/70 mt-2">{error || 'Client not found'}</p>
             <Button
               onClick={() => refetch()}
               variant="outline"
               size="sm"
-              className="mt-3 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+              className="mt-3 border-slate-gray text-slate-gray hover:bg-slate-gray/10"
             >
               Try Again
             </Button>
@@ -61,7 +61,7 @@ export default function EditClientPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black-beauty">
+    <div className="min-h-screen bg-deep-black">
       <TopBar title="Edit Client" showBack />
 
       <div className="p-4 max-w-2xl mx-auto">
