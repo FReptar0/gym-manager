@@ -35,11 +35,11 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div>
-        <TopBar title="Dashboard" />
+        <TopBar title="Panel de Control" />
         <div className="p-4 flex items-center justify-center h-96">
           <div className="text-center">
-            <Loader2 className="h-8 w-8 animate-spin mx-auto text-coastal-vista" />
-            <p className="text-stormy-weather mt-2">Loading dashboard...</p>
+            <Loader2 className="h-8 w-8 animate-spin mx-auto text-neon-cyan" />
+            <p className="text-light-gray mt-2">Cargando panel...</p>
           </div>
         </div>
       </div>
@@ -49,11 +49,11 @@ export default function DashboardPage() {
   if (error) {
     return (
       <div>
-        <TopBar title="Dashboard" />
+        <TopBar title="Panel de Control" />
         <div className="p-4">
-          <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-            <p className="text-red-400">Failed to load dashboard</p>
-            <p className="text-sm text-stormy-weather/70 mt-2">{error}</p>
+          <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+            <p className="text-hot-orange">Error al cargar el panel</p>
+            <p className="text-sm text-light-gray/70 mt-2">{error}</p>
           </Card>
         </div>
       </div>
@@ -62,61 +62,61 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <TopBar title="Dashboard" />
+      <TopBar title="Panel de Control" />
 
       <div className="p-4 space-y-6">
         {/* Welcome Message */}
-        <div className="bg-gradient-to-r from-coastal-vista/10 to-frontier-fort/10 border border-coastal-vista/20 rounded-lg p-4">
-          <h1 className="text-xl font-semibold text-silver-setting">
-            Welcome back! 👋
+        <div className="bg-gradient-to-r from-neon-cyan/10 to-electric-lime/10 border border-neon-cyan/20 rounded-lg p-4">
+          <h1 className="text-xl font-semibold text-bright-white">
+            ¡Bienvenido de vuelta! 👋
           </h1>
-          <p className="text-stormy-weather mt-1">
-            Here&apos;s what&apos;s happening at your gym today
+          <p className="text-light-gray mt-1">
+            Esto es lo que está pasando en tu gimnasio hoy
           </p>
         </div>
 
         {/* KPI Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <KPICard
-            title="Monthly Revenue"
+            title="Ingresos Mensuales"
             value={stats?.total_revenue || 0}
             format="currency"
             icon={DollarSign}
             change={stats?.revenue_growth_percentage ? {
               value: stats.revenue_growth_percentage,
-              period: 'last month'
+              period: 'mes pasado'
             } : undefined}
             trend={stats?.revenue_growth_percentage ? (stats.revenue_growth_percentage > 0 ? 'up' : stats.revenue_growth_percentage < 0 ? 'down' : 'neutral') : 'neutral'}
           />
           
           <KPICard
-            title="Active Clients"
+            title="Clientes Activos"
             value={stats?.active_clients || 0}
             format="number"
             icon={Users}
             change={stats?.client_growth_percentage ? {
               value: stats.client_growth_percentage,
-              period: 'last month'
+              period: 'mes pasado'
             } : undefined}
             trend={stats?.client_growth_percentage ? (stats.client_growth_percentage > 0 ? 'up' : stats.client_growth_percentage < 0 ? 'down' : 'neutral') : 'neutral'}
           />
           
           <KPICard
-            title="New Clients"
+            title="Nuevos Clientes"
             value={stats?.new_clients_this_month || 0}
             format="number"
             icon={UserPlus}
           />
           
           <KPICard
-            title="Revenue vs Goal"
+            title="Ingresos vs Meta"
             value={stats?.projected_revenue && stats?.total_revenue ? 
               (stats.total_revenue / stats.projected_revenue) * 100 : 0}
             format="percentage"
             icon={Target}
             change={stats?.projected_revenue && stats?.total_revenue ? {
               value: ((stats.total_revenue - stats.projected_revenue) / stats.projected_revenue) * 100,
-              period: 'projection'
+              period: 'proyección'
             } : undefined}
             trend={stats?.projected_revenue && stats?.total_revenue ? 
               (stats.total_revenue >= stats.projected_revenue ? 'up' : 'down') : 'neutral'}
@@ -125,11 +125,11 @@ export default function DashboardPage() {
 
         {/* Revenue Chart */}
         {revenueData && revenueData.length > 0 && (
-          <Card className="bg-midnight-magic border-stormy-weather/30">
+          <Card className="bg-carbon-gray border-slate-gray/30">
             <CardHeader>
-              <CardTitle className="text-silver-setting flex items-center gap-2">
+              <CardTitle className="text-bright-white flex items-center gap-2">
                 <BarChart3 className="h-5 w-5" />
-                Revenue Trend (Last 30 Days)
+                Tendencia de Ingresos (Últimos 30 Días)
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -145,34 +145,34 @@ export default function DashboardPage() {
         />
 
         {/* Quick Actions */}
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting">Quick Actions</CardTitle>
+            <CardTitle className="text-bright-white">Acciones Rápidas</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               <Link href="/dashboard/payments/new">
-                <Button className="w-full bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty">
+                <Button className="w-full bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black">
                   <DollarSign className="h-4 w-4 mr-2" />
-                  New Payment
+                  Nuevo Pago
                 </Button>
               </Link>
               <Link href="/dashboard/clients/new">
-                <Button className="w-full bg-frontier-fort hover:bg-frontier-fort/90 text-black-beauty">
+                <Button className="w-full bg-electric-lime hover:bg-electric-lime/90 text-deep-black">
                   <UserPlus className="h-4 w-4 mr-2" />
-                  New Client
+                  Nuevo Cliente
                 </Button>
               </Link>
-              <Link href="/dashboard/clients">
-                <Button variant="outline" className="w-full border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10">
-                  <Users className="h-4 w-4 mr-2" />
-                  View Clients
+              <Link href="/dashboard/plans">
+                <Button className="w-full bg-hot-orange hover:bg-hot-orange/90 text-bright-white">
+                  <Target className="h-4 w-4 mr-2" />
+                  Gestionar Planes
                 </Button>
               </Link>
               <Link href="/dashboard/reports">
-                <Button variant="outline" className="w-full border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10">
+                <Button variant="outline" className="w-full border-slate-gray text-light-gray hover:bg-slate-gray/10">
                   <BarChart3 className="h-4 w-4 mr-2" />
-                  Reports
+                  Reportes
                 </Button>
               </Link>
             </div>
@@ -180,32 +180,32 @@ export default function DashboardPage() {
         </Card>
 
         {/* Today's Summary */}
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting flex items-center gap-2">
+            <CardTitle className="text-bright-white flex items-center gap-2">
               <Calendar className="h-5 w-5" />
-              Today&apos;s Summary
+              Resumen de Hoy
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-2xl font-bold text-silver-setting">
+                <p className="text-2xl font-bold text-bright-white">
                   $0
                 </p>
-                <p className="text-xs text-stormy-weather">Today&apos;s Revenue</p>
+                <p className="text-xs text-light-gray">Ingresos de Hoy</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-silver-setting">
+                <p className="text-2xl font-bold text-bright-white">
                   0
                 </p>
-                <p className="text-xs text-stormy-weather">Payments</p>
+                <p className="text-xs text-light-gray">Pagos</p>
               </div>
               <div className="col-span-2 md:col-span-1">
-                <p className="text-2xl font-bold text-silver-setting">
+                <p className="text-2xl font-bold text-bright-white">
                   0
                 </p>
-                <p className="text-xs text-stormy-weather">New Sign-ups</p>
+                <p className="text-xs text-light-gray">Nuevos Registros</p>
               </div>
             </div>
           </CardContent>

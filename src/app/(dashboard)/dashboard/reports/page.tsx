@@ -6,44 +6,44 @@ import { DollarSign, Users, TrendingUp } from 'lucide-react';
 export default function ReportsPage() {
   return (
     <div>
-      <TopBar title="Reports" />
+      <TopBar title="Reportes" />
 
       <div className="p-4 space-y-6">
         {/* Month Selector */}
-        <select className="w-full h-10 rounded-md border border-stormy-weather bg-midnight-magic px-3 py-2 text-silver-setting">
-          <option>October 2025</option>
-          <option>September 2025</option>
-          <option>August 2025</option>
+        <select className="w-full h-10 rounded-md border border-slate-gray bg-steel-gray px-3 py-2 text-bright-white">
+          <option>Octubre 2025</option>
+          <option>Septiembre 2025</option>
+          <option>Agosto 2025</option>
         </select>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-2 gap-4">
-          <Card className="bg-midnight-magic border-stormy-weather/30">
+          <Card className="bg-carbon-gray border-slate-gray/30">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-stormy-weather">
-                Total Revenue
+              <CardTitle className="text-sm font-medium text-light-gray">
+                Ingresos Totales
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-silver-setting">$0</div>
+              <div className="text-2xl font-bold text-bright-white">$0</div>
             </CardContent>
           </Card>
 
-          <Card className="bg-midnight-magic border-stormy-weather/30">
+          <Card className="bg-carbon-gray border-slate-gray/30">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-stormy-weather">
-                Projected
+              <CardTitle className="text-sm font-medium text-light-gray">
+                Proyectado
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-silver-setting">$0</div>
+              <div className="text-2xl font-bold text-bright-white">$0</div>
             </CardContent>
           </Card>
 
-          <Card className="bg-midnight-magic border-stormy-weather/30">
+          <Card className="bg-carbon-gray border-slate-gray/30">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-stormy-weather">
-                New Clients
+              <CardTitle className="text-sm font-medium text-light-gray">
+                Nuevos Clientes
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -51,10 +51,10 @@ export default function ReportsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-midnight-magic border-stormy-weather/30">
+          <Card className="bg-carbon-gray border-slate-gray/30">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-stormy-weather">
-                Growth
+              <CardTitle className="text-sm font-medium text-light-gray">
+                Crecimiento
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -64,13 +64,13 @@ export default function ReportsPage() {
         </div>
 
         {/* Chart Placeholder */}
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting">Revenue Trend</CardTitle>
+            <CardTitle className="text-bright-white">Tendencia de Ingresos</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-48 flex items-center justify-center text-stormy-weather">
-              Chart will appear here
+            <div className="h-48 flex items-center justify-center text-light-gray">
+              El gráfico aparecerá aquí
             </div>
           </CardContent>
         </Card>

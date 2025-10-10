@@ -45,13 +45,13 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
   };
 
   return (
-    <Card className="bg-midnight-magic border-stormy-weather/30 hover:border-coastal-vista/30 transition-colors">
+    <Card className="bg-carbon-gray border-slate-gray/30 hover:border-neon-cyan/30 transition-colors">
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
           {/* Avatar */}
-          <Avatar className="h-12 w-12 border-2 border-stormy-weather/30">
+          <Avatar className="h-12 w-12 border-2 border-slate-gray/30">
             <AvatarImage src={client.photo_url || undefined} alt={client.full_name} />
-            <AvatarFallback className="bg-stormy-weather/20 text-silver-setting font-medium">
+            <AvatarFallback className="bg-slate-gray/20 text-bright-white font-medium">
               {getInitials(client.full_name)}
             </AvatarFallback>
           </Avatar>
@@ -61,16 +61,16 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
             {/* Header */}
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0 flex-1">
-                <h3 className="font-semibold text-silver-setting truncate">
+                <h3 className="font-semibold text-bright-white truncate">
                   {client.full_name}
                 </h3>
-                <div className="flex items-center gap-1 text-sm text-stormy-weather mt-1">
-                  <Phone className="h-3 w-3" />
-                  <span>{client.phone}</span>
+                <div className="flex items-center gap-1 text-sm text-light-gray mt-1">
+                  <Phone className="h-3 w-3 flex-shrink-0" />
+                  <span className="truncate">{client.phone}</span>
                 </div>
                 {client.email && (
-                  <div className="flex items-center gap-1 text-sm text-stormy-weather">
-                    <Mail className="h-3 w-3" />
+                  <div className="flex items-center gap-1 text-sm text-light-gray">
+                    <Mail className="h-3 w-3 flex-shrink-0" />
                     <span className="truncate">{client.email}</span>
                   </div>
                 )}
@@ -79,7 +79,7 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
               {/* Status Badge */}
               <Badge
                 className={cn(
-                  "shrink-0 border",
+                  "flex-shrink-0 border",
                   statusConfig.bgClass,
                   statusConfig.textClass,
                   statusConfig.borderClass
@@ -92,20 +92,20 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
 
             {/* Plan Info */}
             {client.plan && (
-              <div className="mt-3 p-2 rounded bg-black-beauty/50 border border-stormy-weather/20">
+              <div className="mt-3 p-2 rounded bg-steel-gray/50 border border-slate-gray/20">
                 <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-1">
-                    <CreditCard className="h-3 w-3 text-coastal-vista" />
-                    <span className="text-silver-setting">{client.plan.name}</span>
+                  <div className="flex items-center gap-1 min-w-0 flex-1">
+                    <CreditCard className="h-3 w-3 text-neon-cyan flex-shrink-0" />
+                    <span className="text-bright-white truncate">{client.plan.name}</span>
                   </div>
-                  <span className="text-coastal-vista font-medium">
+                  <span className="text-neon-cyan font-medium flex-shrink-0 ml-2">
                     {formatCurrency(client.plan.price)}
                   </span>
                 </div>
                 
                 {client.expiration_date && (
-                  <div className="flex items-center gap-1 text-xs text-stormy-weather mt-1">
-                    <Calendar className="h-3 w-3" />
+                  <div className="flex items-center gap-1 text-xs text-light-gray mt-1">
+                    <Calendar className="h-3 w-3 flex-shrink-0" />
                     <span>
                       Expires {formatDate(client.expiration_date, 'MMM d, yyyy')}
                       {daysUntilExpiration !== null && (
@@ -132,7 +132,7 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="w-full border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                  className="w-full border-slate-gray text-light-gray hover:bg-slate-gray/10"
                 >
                   <Eye className="h-3 w-3 mr-1" />
                   View
@@ -142,7 +142,7 @@ export function ClientCard({ client, onPayment }: ClientCardProps) {
               <Button 
                 size="sm" 
                 onClick={() => onPayment?.(client.id)}
-                className="bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+                className="bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
               >
                 <DollarSign className="h-3 w-3 mr-1" />
                 Pay

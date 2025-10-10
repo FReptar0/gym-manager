@@ -39,11 +39,11 @@ export function KPICard({
   };
 
   const getTrendColor = () => {
-    if (!change) return 'text-stormy-weather';
+    if (!change) return 'text-light-gray';
     
-    if (trend === 'up') return 'text-green-400';
-    if (trend === 'down') return 'text-red-400';
-    return 'text-stormy-weather';
+    if (trend === 'up') return 'text-electric-lime';
+    if (trend === 'down') return 'text-hot-orange';
+    return 'text-light-gray';
   };
 
   const getTrendIcon = () => {
@@ -55,32 +55,34 @@ export function KPICard({
   };
 
   return (
-    <Card className={cn("bg-midnight-magic border-stormy-weather/30", className)}>
+    <Card className={cn("bg-carbon-gray border-slate-gray/30", className)}>
       <CardContent className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <p className="text-sm text-stormy-weather mb-1">{title}</p>
-            <p className="text-2xl font-bold text-silver-setting">
-              {formatValue(value)}
-            </p>
-            
-            {change && (
-              <div className="flex items-center gap-1 mt-2">
-                <span className={cn("text-sm", getTrendColor())}>
-                  {getTrendIcon()} {Math.abs(change.value).toFixed(1)}%
-                </span>
-                <span className="text-xs text-stormy-weather">
-                  vs {change.period}
-                </span>
-              </div>
-            )}
+        <div className="space-y-3">
+          {/* Header with icon and title */}
+          <div className="flex items-center gap-2">
+            <div className="p-2 bg-neon-cyan/10 rounded-md">
+              <Icon className="h-4 w-4 text-neon-cyan" />
+            </div>
+            <p className="text-sm text-light-gray font-medium">{title}</p>
           </div>
           
-          <div className="ml-4">
-            <div className="p-3 bg-coastal-vista/10 rounded-lg">
-              <Icon className="h-6 w-6 text-coastal-vista" />
+          {/* Value */}
+          <p className="text-2xl font-bold text-bright-white leading-none">
+            {formatValue(value)}
+          </p>
+          
+          {/* Change indicator */}
+          {change && (
+            <div className="flex items-center gap-2 text-sm">
+              <span className={cn("flex items-center gap-1", getTrendColor())}>
+                <span className="text-xs">{getTrendIcon()}</span>
+                {Math.abs(change.value).toFixed(1)}%
+              </span>
+              <span className="text-xs text-light-gray">
+                vs {change.period}
+              </span>
             </div>
-          </div>
+          )}
         </div>
       </CardContent>
     </Card>

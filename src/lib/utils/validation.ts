@@ -11,22 +11,26 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Client validation schema
 export const clientSchema = z.object({
   full_name: z.string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(200, 'Name must not exceed 200 characters')
+    .min(2, 'Nombre debe tener al menos 2 caracteres')
+    .max(200, 'Nombre no debe exceder 200 caracteres')
     .trim(),
   
   phone: z.string()
-    .regex(phoneRegex, 'Phone must be exactly 10 digits')
+    .regex(phoneRegex, 'Teléfono debe tener exactamente 10 dígitos')
     .transform(val => val.replace(/\D/g, '')), // Remove non-digits
   
   email: z.union([
-    z.string().email('Invalid email format'),
+    z.string().email('Formato de correo inválido'),
     z.literal(''),
     z.undefined()
   ]).optional(),
+
+  current_plan_id: z.string()
+    .uuid('ID de plan inválido')
+    .min(1, 'Debe seleccionar un plan'),
   
   birth_date: z.union([
-    z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'),
+    z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha debe estar en formato YYYY-MM-DD'),
     z.literal(''),
     z.undefined()
   ]).optional(),
@@ -46,15 +50,15 @@ export const clientSchema = z.object({
   ]).optional(),
   
   medical_conditions: z.string()
-    .max(1000, 'Medical conditions must not exceed 1000 characters')
+    .max(1000, 'Condiciones médicas no deben exceder 1000 caracteres')
     .optional(),
   
   emergency_contact_name: z.string()
-    .max(200, 'Emergency contact name must not exceed 200 characters')
+    .max(200, 'Nombre de contacto de emergencia no debe exceder 200 caracteres')
     .optional(),
   
   emergency_contact_phone: z.union([
-    z.string().regex(phoneRegex, 'Emergency contact phone must be exactly 10 digits'),
+    z.string().regex(phoneRegex, 'Teléfono de contacto de emergencia debe tener exactamente 10 dígitos'),
     z.literal(''),
     z.undefined()
   ]).optional(),

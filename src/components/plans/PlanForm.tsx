@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -29,16 +30,17 @@ interface PlanFormProps {
 }
 
 const PRESET_PLANS = [
-  { name: 'Daily Pass', duration_days: 1, price: 50, description: 'Single day access' },
-  { name: 'Weekly', duration_days: 7, price: 150, description: 'Weekly membership' },
-  { name: 'Monthly', duration_days: 30, price: 500, description: 'Monthly membership' },
-  { name: 'Quarterly', duration_days: 90, price: 1350, description: '3-month membership (10% off)' },
-  { name: 'Annual', duration_days: 365, price: 4800, description: 'Annual membership (20% off)' },
+  { name: 'Pase Diario', duration_days: 1, price: 50, description: 'Acceso por un día' },
+  { name: 'Semanal', duration_days: 7, price: 150, description: 'Membresía semanal' },
+  { name: 'Mensual', duration_days: 30, price: 500, description: 'Membresía mensual' },
+  { name: 'Trimestral', duration_days: 90, price: 1350, description: 'Membresía de 3 meses (10% descuento)' },
+  { name: 'Anual', duration_days: 365, price: 4800, description: 'Membresía anual (20% descuento)' },
 ];
 
 export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
   const [loading, setLoading] = useState(false);
   const { createPlan, updatePlan } = usePlanMutations();
+  const t = useTranslations();
 
   const {
     register,
@@ -122,11 +124,11 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Preset Plans */}
       {!plan && (
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting flex items-center gap-2">
+            <CardTitle className="text-bright-white flex items-center gap-2">
               <Sparkles className="h-5 w-5" />
-              Quick Templates
+              Plantillas Rápidas
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -140,7 +142,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-silver-setting font-medium">{preset.name}</p>
+                      <p className="text-bright-white font-medium">{preset.name}</p>
                       <p className="text-xs text-stormy-weather">{preset.description}</p>
                     </div>
                     <div className="text-right">
@@ -160,23 +162,23 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
       )}
 
       {/* Basic Information */}
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting flex items-center gap-2">
+          <CardTitle className="text-bright-white flex items-center gap-2">
             <FileText className="h-5 w-5" />
-            Plan Details
+            Detalles del Plan
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="name" className="text-silver-setting">
-              Plan Name <span className="text-red-400">*</span>
+            <Label htmlFor="name" className="text-bright-white">
+              Nombre del Plan <span className="text-red-400">*</span>
             </Label>
             <Input
               id="name"
               {...register('name')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
-              placeholder="e.g., Monthly Premium"
+              className="bg-black-beauty border-stormy-weather text-bright-white"
+              placeholder="ej. Premium Mensual"
             />
             {errors.name && (
               <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>
@@ -185,8 +187,8 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="duration_days" className="text-silver-setting">
-                Duration (Days) <span className="text-red-400">*</span>
+              <Label htmlFor="duration_days" className="text-bright-white">
+                Duración (Días) <span className="text-red-400">*</span>
               </Label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
@@ -195,7 +197,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                   type="number"
                   min="1"
                   {...register('duration_days', { valueAsNumber: true })}
-                  className="pl-10 bg-black-beauty border-stormy-weather text-silver-setting"
+                  className="pl-10 bg-black-beauty border-stormy-weather text-bright-white"
                   placeholder="30"
                 />
               </div>
@@ -205,8 +207,8 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
             </div>
 
             <div>
-              <Label htmlFor="price" className="text-silver-setting">
-                Price <span className="text-red-400">*</span>
+              <Label htmlFor="price" className="text-bright-white">
+                Precio <span className="text-red-400">*</span>
               </Label>
               <div className="relative">
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
@@ -216,7 +218,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                   step="0.01"
                   min="0"
                   {...register('price', { valueAsNumber: true })}
-                  className="pl-10 bg-black-beauty border-stormy-weather text-silver-setting"
+                  className="pl-10 bg-black-beauty border-stormy-weather text-bright-white"
                   placeholder="500.00"
                 />
               </div>
@@ -227,14 +229,14 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="description" className="text-silver-setting">
-              Description
+            <Label htmlFor="description" className="text-bright-white">
+              Descripción
             </Label>
             <Textarea
               id="description"
               {...register('description')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
-              placeholder="Brief description of what this plan includes..."
+              className="bg-black-beauty border-stormy-weather text-bright-white"
+              placeholder="Breve descripción de lo que incluye este plan..."
               rows={3}
             />
             {errors.description && (
@@ -246,32 +248,32 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
 
       {/* Pricing Analysis */}
       {watchedPrice && watchedDuration && (
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting flex items-center gap-2">
+            <CardTitle className="text-bright-white flex items-center gap-2">
               <Calculator className="h-5 w-5" />
-              Pricing Analysis
+              Análisis de Precios
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="text-center p-3 bg-black-beauty rounded-lg">
-                <p className="text-xs text-stormy-weather">Daily Rate</p>
-                <p className="text-lg font-semibold text-silver-setting">
+                <p className="text-xs text-light-gray">Tarifa Diaria</p>
+                <p className="text-lg font-semibold text-bright-white">
                   {formatCurrency(getDailyRate())}
                 </p>
               </div>
               
               <div className="text-center p-3 bg-black-beauty rounded-lg">
-                <p className="text-xs text-stormy-weather">Monthly Equivalent</p>
-                <p className="text-lg font-semibold text-silver-setting">
+                <p className="text-xs text-light-gray">Equivalente Mensual</p>
+                <p className="text-lg font-semibold text-bright-white">
                   {formatCurrency(getMonthlyEquivalent())}
                 </p>
               </div>
 
               <div className="text-center p-3 bg-black-beauty rounded-lg col-span-2 md:col-span-1">
-                <p className="text-xs text-stormy-weather">Duration</p>
-                <p className="text-lg font-semibold text-silver-setting">
+                <p className="text-xs text-light-gray">Duración</p>
+                <p className="text-lg font-semibold text-bright-white">
                   {watchedDuration} day{watchedDuration > 1 ? 's' : ''}
                 </p>
               </div>
@@ -282,16 +284,16 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-green-400" />
                   <p className="text-green-400 text-sm font-medium">
-                    {getSavingsText()}
+                    {getSavingsText() && getSavingsText().replace('savings vs daily rate', 'descuento vs tarifa diaria')}
                   </p>
                 </div>
               </div>
             )}
 
             <div className="text-xs text-stormy-weather space-y-1">
-              <p>• Daily rate comparison based on $50/day standard</p>
-              <p>• Monthly equivalent helps compare different plan durations</p>
-              <p>• Longer plans typically offer better value per day</p>
+              <p>• Comparación de tarifa diaria basada en $50/día estándar</p>
+              <p>• El equivalente mensual ayuda a comparar diferentes duraciones</p>
+              <p>• Los planes largos ofrecen mejor valor por día</p>
             </div>
           </CardContent>
         </Card>
@@ -306,14 +308,14 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
           className="flex-1 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
           disabled={loading}
         >
-          Cancel
+          Cancelar
         </Button>
         <Button
           type="submit"
-          className="flex-1 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+          className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
           disabled={loading}
         >
-          {loading ? 'Saving...' : plan ? 'Update Plan' : 'Create Plan'}
+          {loading ? 'Guardando...' : plan ? 'Actualizar Plan' : 'Crear Plan'}
         </Button>
       </div>
     </form>

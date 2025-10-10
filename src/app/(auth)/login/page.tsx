@@ -38,18 +38,18 @@ export default function LoginPage() {
   };
 
   return (
-    <Card className="bg-midnight-magic border-stormy-weather/30">
+    <Card className="bg-carbon-gray border-slate-gray/30">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl text-silver-setting">Gym Manager</CardTitle>
-        <CardDescription className="text-stormy-weather">
-          Sign in to manage your gym
+        <CardTitle className="text-2xl text-bright-white">Gym Manager</CardTitle>
+        <CardDescription className="text-light-gray">
+          Inicia sesión para gestionar tu gimnasio
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-silver-setting">
-              Email
+            <label htmlFor="email" className="text-sm font-medium text-bright-white">
+              Correo electrónico
             </label>
             <Input
               id="email"
@@ -58,12 +58,12 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
             />
           </div>
           <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium text-silver-setting">
-              Password
+            <label htmlFor="password" className="text-sm font-medium text-bright-white">
+              Contraseña
             </label>
             <Input
               id="password"
@@ -72,18 +72,18 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
             />
           </div>
           {error && (
-            <div className="text-red-500 text-sm">{error}</div>
+            <div className="text-hot-orange text-sm">{error}</div>
           )}
           <Button
             type="submit"
-            className="w-full bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+            className="w-full bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
             disabled={loading}
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </Button>
         </form>
       </CardContent>

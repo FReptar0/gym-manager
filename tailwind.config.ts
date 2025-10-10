@@ -10,13 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Custom Dark Palette
-        'black-beauty': '#232729',
-        'midnight-magic': '#47484a',
-        'stormy-weather': '#657079',
-        'coastal-vista': '#8194a1',
-        'frontier-fort': '#c3af9f',
-        'silver-setting': '#d9dada',
+        // Gym Pro Palette - Energetic & Modern
+        'deep-black': '#0a0a0a',       // Ultra dark background
+        'carbon-gray': '#1a1a1a',      // Cards background  
+        'steel-gray': '#2a2a2a',       // Secondary elements
+        'slate-gray': '#404040',       // Borders and muted elements
+        'light-gray': '#b0b0b0',       // Secondary text
+        'neon-cyan': '#00d9ff',        // Primary accent (energetic blue)
+        'electric-lime': '#32ff7e',    // Success/positive actions
+        'hot-orange': '#ff6b35',       // Warning/attention
+        'bright-white': '#ffffff',     // Primary text
 
         // Semantic colors from shadcn
         border: 'hsl(var(--border))',

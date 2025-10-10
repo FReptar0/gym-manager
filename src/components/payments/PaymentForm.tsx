@@ -180,28 +180,28 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Client Selection */}
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting flex items-center gap-2">
+          <CardTitle className="text-bright-white flex items-center gap-2">
             <User className="h-5 w-5" />
-            Client Selection
+            Selección de Cliente
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {selectedClient ? (
-            <div className="flex items-center gap-3 p-3 bg-black-beauty rounded-lg border border-stormy-weather/30">
+            <div className="flex items-center gap-3 p-3 bg-steel-gray rounded-lg border border-slate-gray/30">
               <Avatar className="h-12 w-12">
                 <AvatarImage src={selectedClient.photo_url || undefined} />
-                <AvatarFallback className="bg-stormy-weather/20 text-silver-setting">
+                <AvatarFallback className="bg-slate-gray/20 text-bright-white">
                   {getInitials(selectedClient.full_name)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <p className="text-silver-setting font-medium">{selectedClient.full_name}</p>
-                <p className="text-sm text-stormy-weather">{selectedClient.phone}</p>
+                <p className="text-bright-white font-medium">{selectedClient.full_name}</p>
+                <p className="text-sm text-light-gray">{selectedClient.phone}</p>
                 {selectedClient.current_plan_id && (
-                  <Badge className="mt-1 bg-coastal-vista/20 text-coastal-vista border-coastal-vista/30">
-                    {plans.find(p => p.id === selectedClient.current_plan_id)?.name || 'Unknown Plan'}
+                  <Badge className="mt-1 bg-neon-cyan/20 text-neon-cyan border-neon-cyan/30">
+                    {plans.find(p => p.id === selectedClient.current_plan_id)?.name || 'Plan Desconocido'}
                   </Badge>
                 )}
               </div>
@@ -215,20 +215,20 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                   setSelectedPlan(null);
                   reset();
                 }}
-                className="border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                className="border-slate-gray text-light-gray hover:bg-slate-gray/20"
               >
-                Change
+                Cambiar
               </Button>
             </div>
           ) : (
             <div className="space-y-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-light-gray" />
                 <Input
-                  placeholder="Search clients by name..."
+                  placeholder="Buscar clientes por nombre..."
                   value={clientSearch}
                   onChange={(e) => setClientSearch(e.target.value)}
-                  className="pl-10 bg-black-beauty border-stormy-weather text-silver-setting"
+                  className="pl-10 bg-steel-gray border-slate-gray text-bright-white"
                 />
               </div>
               
@@ -260,7 +260,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                   };
                   handleClientSelect(guestClient);
                 }}
-                className="w-full justify-start border-dashed border-coastal-vista/30 text-coastal-vista hover:bg-coastal-vista/10"
+                className="w-full justify-start border-dashed border-coastal-vista/30 text-neon-cyan hover:bg-coastal-vista/10"
               >
                 <User className="h-4 w-4 mr-2" />
                 Guest / Daily Payment
@@ -274,17 +274,17 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                       key={client.id}
                       type="button"
                       onClick={() => handleClientSelect(client)}
-                      className="w-full flex items-center gap-3 p-3 bg-black-beauty rounded-lg border border-stormy-weather/30 hover:border-coastal-vista/30 transition-colors text-left"
+                      className="w-full flex items-center gap-3 p-3 bg-steel-gray rounded-lg border border-slate-gray/30 hover:border-coastal-vista/30 transition-colors text-left"
                     >
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={client.photo_url || undefined} />
-                        <AvatarFallback className="bg-stormy-weather/20 text-silver-setting text-sm">
+                        <AvatarFallback className="bg-stormy-weather/20 text-bright-white text-sm">
                           {getInitials(client.full_name)}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
-                        <p className="text-silver-setting font-medium truncate">{client.full_name}</p>
-                        <p className="text-sm text-stormy-weather">{client.phone}</p>
+                        <p className="text-bright-white font-medium truncate">{client.full_name}</p>
+                        <p className="text-sm text-light-gray">{client.phone}</p>
                       </div>
                     </button>
                   ))}
@@ -297,32 +297,32 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
       {/* Plan & Amount */}
       {selectedClient && (
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting flex items-center gap-2">
+            <CardTitle className="text-bright-white flex items-center gap-2">
               <CreditCard className="h-5 w-5" />
-              Plan & Payment Details
+              Detalles del Plan y Pago
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label className="text-silver-setting">
+              <Label className="text-bright-white">
                 Plan <span className="text-red-400">*</span>
               </Label>
               <Select onValueChange={handlePlanSelect} value={selectedPlan?.id || ''}>
-                <SelectTrigger className="bg-black-beauty border-stormy-weather text-silver-setting">
-                  <SelectValue placeholder="Select a plan" />
+                <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
+                  <SelectValue placeholder="Seleccionar un plan" />
                 </SelectTrigger>
-                <SelectContent className="bg-midnight-magic border-stormy-weather">
+                <SelectContent className="bg-carbon-gray border-slate-gray">
                   {plans.map((plan) => (
                     <SelectItem
                       key={plan.id}
                       value={plan.id}
-                      className="text-silver-setting hover:bg-stormy-weather/20"
+                      className="text-bright-white hover:bg-stormy-weather/20"
                     >
                       <div className="flex items-center justify-between w-full">
                         <span>{plan.name}</span>
-                        <span className="text-coastal-vista ml-2">
+                        <span className="text-neon-cyan ml-2">
                           {formatCurrency(plan.price)}
                         </span>
                       </div>
@@ -337,18 +337,18 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="amount" className="text-silver-setting">
-                  Amount <span className="text-red-400">*</span>
+                <Label htmlFor="amount" className="text-bright-white">
+                  Monto <span className="text-red-400">*</span>
                 </Label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
+                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-light-gray" />
                   <Input
                     id="amount"
                     type="number"
                     step="0.01"
                     min="0"
                     {...register('amount')}
-                    className="pl-10 bg-black-beauty border-stormy-weather text-silver-setting"
+                    className="pl-10 bg-steel-gray border-slate-gray text-bright-white"
                     placeholder="0.00"
                   />
                 </div>
@@ -358,17 +358,17 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
               </div>
 
               <div>
-                <Label className="text-silver-setting">Payment Method</Label>
+                <Label className="text-bright-white">Método de Pago</Label>
                 <Select onValueChange={(value) => setValue('payment_method', value as any)}>
-                  <SelectTrigger className="bg-black-beauty border-stormy-weather text-silver-setting">
-                    <SelectValue placeholder="Select method" />
+                  <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
+                    <SelectValue placeholder="Seleccionar método" />
                   </SelectTrigger>
-                  <SelectContent className="bg-midnight-magic border-stormy-weather">
+                  <SelectContent className="bg-carbon-gray border-slate-gray">
                     {Object.entries(PAYMENT_METHOD_LABELS).map(([value, label]) => (
                       <SelectItem
                         key={value}
                         value={value}
-                        className="text-silver-setting hover:bg-stormy-weather/20"
+                        className="text-bright-white hover:bg-stormy-weather/20"
                       >
                         {label}
                       </SelectItem>
@@ -379,14 +379,14 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
             </div>
 
             <div>
-              <Label htmlFor="payment_date" className="text-silver-setting">
+              <Label htmlFor="payment_date" className="text-bright-white">
                 Payment Date
               </Label>
               <Input
                 id="payment_date"
                 type="date"
                 {...register('payment_date')}
-                className="bg-black-beauty border-stormy-weather text-silver-setting"
+                className="bg-steel-gray border-slate-gray text-bright-white"
               />
               {errors.payment_date && (
                 <p className="text-red-400 text-sm mt-1">{errors.payment_date.message}</p>
@@ -394,11 +394,11 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
             </div>
 
             <div>
-              <Label htmlFor="notes" className="text-silver-setting">Notes</Label>
+              <Label htmlFor="notes" className="text-bright-white">Notas</Label>
               <Textarea
                 id="notes"
                 {...register('notes')}
-                className="bg-black-beauty border-stormy-weather text-silver-setting"
+                className="bg-steel-gray border-slate-gray text-bright-white"
                 placeholder="Optional notes about this payment..."
                 rows={2}
               />
@@ -409,9 +409,9 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
       {/* Membership Period Calculation */}
       {selectedClient && selectedPlan && calculatedPeriod && (
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardHeader>
-            <CardTitle className="text-silver-setting flex items-center gap-2">
+            <CardTitle className="text-bright-white flex items-center gap-2">
               <Calculator className="h-5 w-5" />
               Membership Period
             </CardTitle>
@@ -419,17 +419,17 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
           <CardContent className="space-y-3">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-stormy-weather">Period Start</p>
-                <p className="text-silver-setting font-medium">{formatDate(calculatedPeriod.start)}</p>
+                <p className="text-sm text-light-gray">Inicio del Período</p>
+                <p className="text-bright-white font-medium">{formatDate(calculatedPeriod.start)}</p>
               </div>
               <div>
-                <p className="text-sm text-stormy-weather">Period End</p>
-                <p className="text-silver-setting font-medium">{formatDate(calculatedPeriod.end)}</p>
+                <p className="text-sm text-light-gray">Fin del Período</p>
+                <p className="text-bright-white font-medium">{formatDate(calculatedPeriod.end)}</p>
               </div>
             </div>
             
             <div className="p-3 bg-coastal-vista/10 border border-coastal-vista/30 rounded-lg">
-              <p className="text-sm text-coastal-vista">
+              <p className="text-sm text-neon-cyan">
                 ✓ This membership will be valid for {selectedPlan.duration_days} days
                 {selectedClient.expiration_date && new Date(selectedClient.expiration_date) >= new Date() && (
                   <span className="block mt-1">
@@ -448,17 +448,17 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="flex-1 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+          className="flex-1 border-slate-gray text-light-gray hover:bg-stormy-weather/10"
           disabled={loading}
         >
-          Cancel
+          Cancelar
         </Button>
         <Button
           type="submit"
           className="flex-1 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
           disabled={loading || !selectedClient || !selectedPlan}
         >
-          {loading ? 'Processing...' : `Register Payment${watchedAmount ? ` - ${formatCurrency(watchedAmount)}` : ''}`}
+          {loading ? 'Procesando...' : `Registrar Pago${watchedAmount ? ` - ${formatCurrency(watchedAmount)}` : ''}`}
         </Button>
       </div>
     </form>

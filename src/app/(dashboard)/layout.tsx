@@ -13,10 +13,10 @@ export default function DashboardLayout({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black-beauty flex items-center justify-center">
+      <div className="min-h-screen bg-deep-black flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-coastal-vista" />
-          <p className="text-stormy-weather mt-2">Loading...</p>
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-neon-cyan" />
+          <p className="text-light-gray mt-2">Loading...</p>
         </div>
       </div>
     );
@@ -27,7 +27,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-black-beauty pb-16 md:pb-0">
+    <div className="min-h-screen bg-deep-black pb-16 md:pb-0">
       {children}
       <BottomNav />
     </div>

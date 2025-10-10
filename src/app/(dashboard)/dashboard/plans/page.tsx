@@ -36,7 +36,7 @@ export default function PlansPage() {
       refetch();
     } catch (error) {
       console.error('Error toggling plan status:', error);
-      alert('Failed to update plan status');
+      alert('Error al actualizar estado del plan');
     }
   };
 
@@ -52,30 +52,30 @@ export default function PlansPage() {
   };
 
   const filterButtons = [
-    { key: 'all', label: 'All Plans', count: plans.length },
-    { key: 'active', label: 'Active', count: plans.filter(p => p.is_active).length },
-    { key: 'inactive', label: 'Inactive', count: plans.filter(p => !p.is_active).length },
+    { key: 'all', label: 'Todos los Planes', count: plans.length },
+    { key: 'active', label: 'Activos', count: plans.filter(p => p.is_active).length },
+    { key: 'inactive', label: 'Inactivos', count: plans.filter(p => !p.is_active).length },
   ];
 
   return (
     <div>
-      <TopBar title="Plans" />
+      <TopBar title="Planes" />
 
       <div className="p-4 space-y-4">
         {/* Filter Tabs */}
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-silver-setting flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-bright-white flex items-center gap-2">
                 <Settings className="h-5 w-5" />
-                Membership Plans
+                Planes de Membresía
               </h2>
               <Button
                 onClick={() => setShowCreateForm(true)}
-                className="bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+                className="bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
               >
                 <Plus className="h-4 w-4 mr-2" />
-                New Plan
+                Nuevo Plan
               </Button>
             </div>
 
@@ -89,8 +89,8 @@ export default function PlansPage() {
                   className={cn(
                     "shrink-0 transition-colors",
                     filter === btn.key
-                      ? "bg-coastal-vista/20 border-coastal-vista/30 text-coastal-vista"
-                      : "border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                      ? "bg-neon-cyan/20 border-neon-cyan/30 text-neon-cyan"
+                      : "border-slate-gray text-light-gray hover:bg-slate-gray/10"
                   )}
                 >
                   {btn.label}
@@ -106,45 +106,45 @@ export default function PlansPage() {
         {/* Plans List */}
         <div className="space-y-4">
           {loading ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <Loader2 className="h-6 w-6 animate-spin mx-auto text-coastal-vista" />
-              <p className="text-stormy-weather mt-2">Loading plans...</p>
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <Loader2 className="h-6 w-6 animate-spin mx-auto text-neon-cyan" />
+              <p className="text-light-gray mt-2">Cargando planes...</p>
             </Card>
           ) : error ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <p className="text-red-400">Error loading plans</p>
-              <p className="text-sm text-stormy-weather/70 mt-2">{error}</p>
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <p className="text-hot-orange">Error al cargar planes</p>
+              <p className="text-sm text-light-gray/70 mt-2">{error}</p>
               <Button
                 onClick={() => refetch()}
                 variant="outline"
                 size="sm"
-                className="mt-3 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                className="mt-3 border-slate-gray text-light-gray hover:bg-slate-gray/10"
               >
-                Try Again
+                Intentar de Nuevo
               </Button>
             </Card>
           ) : filteredPlans.length === 0 ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <Settings className="h-12 w-12 mx-auto text-stormy-weather/50 mb-4" />
-              <p className="text-stormy-weather">
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <Settings className="h-12 w-12 mx-auto text-slate-gray/50 mb-4" />
+              <p className="text-light-gray">
                 {filter === 'all' 
-                  ? 'No plans created yet'
-                  : `No ${filter} plans found`
+                  ? 'No hay planes creados aún'
+                  : `No se encontraron planes ${filter === 'active' ? 'activos' : 'inactivos'}`
                 }
               </p>
-              <p className="text-sm text-stormy-weather/70 mt-2">
+              <p className="text-sm text-light-gray/70 mt-2">
                 {filter === 'all'
-                  ? 'Create your first membership plan to get started'
-                  : `Switch to "All Plans" to see all plans`
+                  ? 'Crea tu primer plan de membresía para comenzar'
+                  : `Cambia a "Todos los Planes" para ver todos los planes`
                 }
               </p>
               {filter === 'all' && (
                 <Button
                   onClick={() => setShowCreateForm(true)}
-                  className="mt-4 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+                  className="mt-4 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  Create First Plan
+                  Crear Primer Plan
                 </Button>
               )}
             </Card>
@@ -164,31 +164,31 @@ export default function PlansPage() {
 
         {/* Plan Statistics */}
         {plans.length > 0 && (
-          <Card className="bg-midnight-magic border-stormy-weather/30">
+          <Card className="bg-carbon-gray border-slate-gray/30">
             <CardContent className="p-4">
-              <h3 className="text-silver-setting font-medium mb-3">Quick Stats</h3>
+              <h3 className="text-bright-white font-medium mb-3">Estadísticas Rápidas</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-coastal-vista">{plans.length}</p>
-                  <p className="text-xs text-stormy-weather">Total Plans</p>
+                  <p className="text-2xl font-bold text-neon-cyan">{plans.length}</p>
+                  <p className="text-xs text-light-gray">Total de Planes</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-green-400">
+                  <p className="text-2xl font-bold text-electric-lime">
                     {plans.filter(p => p.is_active).length}
                   </p>
-                  <p className="text-xs text-stormy-weather">Active Plans</p>
+                  <p className="text-xs text-light-gray">Planes Activos</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-silver-setting">
+                  <p className="text-2xl font-bold text-bright-white">
                     ${Math.min(...plans.map(p => p.price)).toFixed(0)}
                   </p>
-                  <p className="text-xs text-stormy-weather">Lowest Price</p>
+                  <p className="text-xs text-light-gray">Precio Más Bajo</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-silver-setting">
+                  <p className="text-2xl font-bold text-bright-white">
                     ${Math.max(...plans.map(p => p.price)).toFixed(0)}
                   </p>
-                  <p className="text-xs text-stormy-weather">Highest Price</p>
+                  <p className="text-xs text-light-gray">Precio Más Alto</p>
                 </div>
               </div>
             </CardContent>
@@ -198,9 +198,9 @@ export default function PlansPage() {
 
       {/* Create Plan Dialog */}
       <Dialog open={showCreateForm} onOpenChange={setShowCreateForm}>
-        <DialogContent className="bg-midnight-magic border-stormy-weather/30 max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-carbon-gray border-slate-gray/30 max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-silver-setting">Create New Plan</DialogTitle>
+            <DialogTitle className="text-bright-white">Crear Nuevo Plan</DialogTitle>
           </DialogHeader>
           <PlanForm
             onSuccess={handleFormSuccess}
@@ -211,9 +211,9 @@ export default function PlansPage() {
 
       {/* Edit Plan Dialog */}
       <Dialog open={!!editingPlan} onOpenChange={(open) => !open && setEditingPlan(null)}>
-        <DialogContent className="bg-midnight-magic border-stormy-weather/30 max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-carbon-gray border-slate-gray/30 max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-silver-setting">Edit Plan</DialogTitle>
+            <DialogTitle className="text-bright-white">Editar Plan</DialogTitle>
           </DialogHeader>
           {editingPlan && (
             <PlanForm

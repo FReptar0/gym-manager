@@ -6,17 +6,17 @@ import { Home, Users, DollarSign, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/dashboard', label: 'Home', icon: Home },
-  { href: '/dashboard/clients', label: 'Clients', icon: Users },
-  { href: '/dashboard/payments', label: 'Payments', icon: DollarSign },
-  { href: '/dashboard/reports', label: 'Reports', icon: BarChart3 },
+  { href: '/dashboard', label: 'Inicio', icon: Home },
+  { href: '/dashboard/clients', label: 'Clientes', icon: Users },
+  { href: '/dashboard/payments', label: 'Pagos', icon: DollarSign },
+  { href: '/dashboard/reports', label: 'Reportes', icon: BarChart3 },
 ];
 
 export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-midnight-magic border-t border-stormy-weather/30 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 bg-carbon-gray border-t border-slate-gray/30 md:hidden">
       <div className="flex justify-around items-center h-16">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -29,8 +29,8 @@ export function BottomNav() {
               className={cn(
                 'flex flex-col items-center justify-center flex-1 h-full transition-colors',
                 isActive
-                  ? 'text-coastal-vista'
-                  : 'text-stormy-weather hover:text-silver-setting'
+                  ? 'text-neon-cyan'
+                  : 'text-light-gray hover:text-bright-white'
               )}
             >
               <Icon className="h-5 w-5" />

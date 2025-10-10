@@ -27,34 +27,34 @@
   }
 
   .dark {
-    /* Custom Dark Mode Palette */
-    --background: 210 11% 15%;           /* black-beauty #232729 */
-    --foreground: 0 0% 85%;              /* silver-setting #d9dada */
+    /* Gym Pro Dark Mode Palette */
+    --background: 0 0% 4%;               /* deep-black #0a0a0a */
+    --foreground: 0 0% 100%;             /* bright-white #ffffff */
 
-    --card: 210 4% 28%;                  /* midnight-magic #47484a */
-    --card-foreground: 0 0% 85%;         /* silver-setting */
+    --card: 0 0% 10%;                    /* carbon-gray #1a1a1a */
+    --card-foreground: 0 0% 100%;        /* bright-white */
 
-    --popover: 210 4% 28%;               /* midnight-magic */
-    --popover-foreground: 0 0% 85%;      /* silver-setting */
+    --popover: 0 0% 10%;                 /* carbon-gray */
+    --popover-foreground: 0 0% 100%;     /* bright-white */
 
-    --primary: 345 17% 63%;              /* coastal-vista #8194a1 */
-    --primary-foreground: 210 11% 15%;   /* black-beauty */
+    --primary: 193 100% 50%;             /* neon-cyan #00d9ff */
+    --primary-foreground: 0 0% 4%;       /* deep-black */
 
-    --secondary: 30 18% 68%;             /* frontier-fort #c3af9f */
-    --secondary-foreground: 210 11% 15%; /* black-beauty */
+    --secondary: 151 100% 59%;           /* electric-lime #32ff7e */
+    --secondary-foreground: 0 0% 4%;     /* deep-black */
 
-    --muted: 205 9% 45%;                 /* stormy-weather #657079 */
-    --muted-foreground: 0 0% 75%;
+    --muted: 0 0% 25%;                   /* slate-gray #404040 */
+    --muted-foreground: 0 0% 69%;        /* light-gray #b0b0b0 */
 
-    --accent: 345 17% 63%;               /* coastal-vista */
-    --accent-foreground: 210 11% 15%;    /* black-beauty */
+    --accent: 193 100% 50%;              /* neon-cyan */
+    --accent-foreground: 0 0% 4%;        /* deep-black */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 15 100% 60%;          /* hot-orange #ff6b35 */
+    --destructive-foreground: 0 0% 100%; /* bright-white */
 
-    --border: 205 9% 45%;                /* stormy-weather */
-    --input: 205 9% 45%;                 /* stormy-weather */
-    --ring: 345 17% 63%;                 /* coastal-vista */
+    --border: 0 0% 25%;                  /* slate-gray */
+    --input: 0 0% 16%;                   /* steel-gray */
+    --ring: 193 100% 50%;                /* neon-cyan */
   }
 }
 

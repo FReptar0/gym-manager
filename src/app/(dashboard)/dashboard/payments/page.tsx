@@ -53,16 +53,16 @@ export default function PaymentsPage() {
     const config = {
       cash: {
         className: "bg-green-500/10 text-green-400 border-green-500/30",
-        label: "Cash"
+        label: "Efectivo"
       },
       transfer: {
         className: "bg-blue-500/10 text-blue-400 border-blue-500/30",
-        label: "Transfer"
+        label: "Transferencia"
       }
     };
 
     const methodConfig = config[method as keyof typeof config] || {
-      className: "bg-stormy-weather/10 text-stormy-weather border-stormy-weather/30",
+      className: "bg-slate-gray/10 text-light-gray border-slate-gray/30",
       label: method
     };
 
@@ -85,20 +85,20 @@ export default function PaymentsPage() {
 
   return (
     <div>
-      <TopBar title="Payments" />
+      <TopBar title="Pagos" />
 
       <div className="p-4 space-y-4">
         {/* Filters */}
-        <Card className="bg-midnight-magic border-stormy-weather/30">
+        <Card className="bg-carbon-gray border-slate-gray/30">
           <CardContent className="p-4 space-y-4">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-light-gray" />
               <Input
-                placeholder="Search by client name..."
+                placeholder="Buscar por nombre del cliente..."
                 value={filters.client_search || ''}
                 onChange={(e) => setFilters({ ...filters, client_search: e.target.value })}
-                className="pl-10 bg-black-beauty border-stormy-weather text-silver-setting"
+                className="pl-10 bg-steel-gray border-slate-gray text-bright-white"
               />
             </div>
 
@@ -110,19 +110,19 @@ export default function PaymentsPage() {
                   setFilters({ ...filters, plan_id: value === 'all' ? undefined : value })
                 }
               >
-                <SelectTrigger className="w-48 bg-black-beauty border-stormy-weather text-silver-setting">
+                <SelectTrigger className="w-48 bg-steel-gray border-slate-gray text-bright-white">
                   <div className="flex items-center gap-2">
                     <Filter className="h-3 w-3" />
-                    <SelectValue placeholder="Filter by plan" />
+                    <SelectValue placeholder="Filtrar por plan" />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-midnight-magic border-stormy-weather">
-                  <SelectItem value="all" className="text-silver-setting">All Plans</SelectItem>
+                <SelectContent className="bg-carbon-gray border-slate-gray">
+                  <SelectItem value="all" className="text-bright-white">Todos los Planes</SelectItem>
                   {plans.map((plan) => (
                     <SelectItem 
                       key={plan.id} 
                       value={plan.id}
-                      className="text-silver-setting hover:bg-stormy-weather/20"
+                      className="text-bright-white hover:bg-slate-gray/20"
                     >
                       {plan.name}
                     </SelectItem>
@@ -136,13 +136,13 @@ export default function PaymentsPage() {
                   setFilters({ ...filters, payment_method: value === 'all' ? undefined : value as any })
                 }
               >
-                <SelectTrigger className="w-40 bg-black-beauty border-stormy-weather text-silver-setting">
-                  <SelectValue placeholder="Method" />
+                <SelectTrigger className="w-40 bg-steel-gray border-slate-gray text-bright-white">
+                  <SelectValue placeholder="Método" />
                 </SelectTrigger>
-                <SelectContent className="bg-midnight-magic border-stormy-weather">
-                  <SelectItem value="all" className="text-silver-setting">All Methods</SelectItem>
-                  <SelectItem value="cash" className="text-silver-setting">Cash</SelectItem>
-                  <SelectItem value="transfer" className="text-silver-setting">Transfer</SelectItem>
+                <SelectContent className="bg-carbon-gray border-slate-gray">
+                  <SelectItem value="all" className="text-bright-white">Todos los Métodos</SelectItem>
+                  <SelectItem value="cash" className="text-bright-white">Efectivo</SelectItem>
+                  <SelectItem value="transfer" className="text-bright-white">Transferencia</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -151,9 +151,9 @@ export default function PaymentsPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => setFilters({})}
-                  className="text-stormy-weather hover:text-silver-setting"
+                  className="text-light-gray hover:text-bright-white"
                 >
-                  Clear
+                  Limpiar
                 </Button>
               )}
             </div>
@@ -163,43 +163,43 @@ export default function PaymentsPage() {
         {/* Payments List */}
         <div className="space-y-3">
           {loading && page === 1 ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <Loader2 className="h-6 w-6 animate-spin mx-auto text-coastal-vista" />
-              <p className="text-stormy-weather mt-2">Loading payments...</p>
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <Loader2 className="h-6 w-6 animate-spin mx-auto text-neon-cyan" />
+              <p className="text-light-gray mt-2">Cargando pagos...</p>
             </Card>
           ) : error ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <p className="text-red-400">Error loading payments</p>
-              <p className="text-sm text-stormy-weather/70 mt-2">{error}</p>
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <p className="text-hot-orange">Error al cargar pagos</p>
+              <p className="text-sm text-light-gray/70 mt-2">{error}</p>
               <Button
                 onClick={() => refetch()}
                 variant="outline"
                 size="sm"
-                className="mt-3 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                className="mt-3 border-slate-gray text-light-gray hover:bg-slate-gray/10"
               >
-                Try Again
+                Intentar de Nuevo
               </Button>
             </Card>
           ) : payments.length === 0 ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <DollarSign className="h-12 w-12 mx-auto text-stormy-weather/50 mb-4" />
-              <p className="text-stormy-weather">
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <DollarSign className="h-12 w-12 mx-auto text-light-gray/50 mb-4" />
+              <p className="text-light-gray">
                 {filters.client_search || filters.plan_id || filters.payment_method
-                  ? 'No payments match your filters'
-                  : 'No payments yet'
+                  ? 'No hay pagos que coincidan con tus filtros'
+                  : 'Aún no hay pagos'
                 }
               </p>
-              <p className="text-sm text-stormy-weather/70 mt-2">
+              <p className="text-sm text-light-gray/70 mt-2">
                 {filters.client_search || filters.plan_id || filters.payment_method
-                  ? 'Try adjusting your search or filters'
-                  : 'Register your first payment to get started'
+                  ? 'Intenta ajustar tu búsqueda o filtros'
+                  : 'Registra tu primer pago para comenzar'
                 }
               </p>
               {!(filters.client_search || filters.plan_id || filters.payment_method) && (
                 <Link href="/dashboard/payments/new">
-                  <Button className="mt-4 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty">
+                  <Button className="mt-4 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black">
                     <Plus className="h-4 w-4 mr-2" />
-                    Register First Payment
+                    Registrar Primer Pago
                   </Button>
                 </Link>
               )}
@@ -209,47 +209,59 @@ export default function PaymentsPage() {
               {payments.map((payment) => (
                 <Card
                   key={payment.id}
-                  className="bg-midnight-magic border-stormy-weather/30 hover:border-coastal-vista/30 transition-colors"
+                  className="bg-carbon-gray border-slate-gray/30 hover:border-neon-cyan/30 transition-colors"
                 >
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-4">
-                      {/* Client Avatar */}
+                  <CardContent className="p-3">
+                    {/* Mobile-First Layout */}
+                    <div className="space-y-3">
+                      {/* Top Row: Client Info */}
                       <button
                         onClick={() => handleClientClick(payment.client.id)}
-                        className="flex items-center gap-3 flex-1 min-w-0 text-left hover:opacity-80 transition-opacity"
+                        className="flex items-center gap-3 w-full text-left hover:opacity-80 transition-opacity"
                         disabled={payment.client.id === '00000000-0000-0000-0000-000000000001'}
                       >
-                        <Avatar className="h-12 w-12 shrink-0">
+                        <Avatar className="h-10 w-10 shrink-0">
                           <AvatarImage src={payment.client.photo_url || undefined} />
-                          <AvatarFallback className="bg-stormy-weather/20 text-silver-setting">
+                          <AvatarFallback className="bg-slate-gray/20 text-bright-white">
                             {payment.client.full_name === 'Guest / Daily' ? '👤' : getInitials(payment.client.full_name)}
                           </AvatarFallback>
                         </Avatar>
                         
                         <div className="flex-1 min-w-0">
-                          <p className="text-silver-setting font-medium truncate">
+                          <p className="text-sm font-medium text-bright-white truncate">
                             {payment.client.full_name}
                           </p>
-                          <p className="text-sm text-stormy-weather">
-                            {payment.plan?.name || 'Unknown Plan'}
+                          <p className="text-xs text-light-gray">
+                            {payment.plan?.name || 'Plan Desconocido'}
                           </p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Calendar className="h-3 w-3 text-stormy-weather" />
-                            <span className="text-xs text-stormy-weather">
-                              {formatDateRelative(payment.payment_date)}
-                            </span>
-                            {getPaymentMethodBadge(payment.payment_method)}
-                          </div>
                         </div>
                       </button>
 
-                      {/* Amount */}
-                      <div className="text-right shrink-0">
-                        <p className="text-lg font-semibold text-silver-setting">
+                      {/* Amount Section */}
+                      <div className="text-center py-2 bg-deep-black/30 rounded-md">
+                        <p className="text-lg font-bold text-electric-lime">
                           {formatCurrency(payment.amount)}
                         </p>
-                        <p className="text-xs text-stormy-weather">
-                          {formatDate(payment.period_start)} - {formatDate(payment.period_end)}
+                        <p className="text-xs text-light-gray">Total Pagado</p>
+                      </div>
+
+                      {/* Payment Details */}
+                      <div className="grid grid-cols-2 gap-3 text-sm">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-3 w-3 text-neon-cyan flex-shrink-0" />
+                          <span className="text-xs text-light-gray truncate">
+                            {formatDateRelative(payment.payment_date)}
+                          </span>
+                        </div>
+                        <div className="flex justify-end">
+                          {getPaymentMethodBadge(payment.payment_method)}
+                        </div>
+                      </div>
+
+                      {/* Period Info */}
+                      <div className="text-center">
+                        <p className="text-xs text-light-gray">
+                          Período: {formatDate(payment.period_start, 'MMM d')} - {formatDate(payment.period_end, 'MMM d, yyyy')}
                         </p>
                       </div>
                     </div>
@@ -270,15 +282,15 @@ export default function PaymentsPage() {
                     onClick={handleLoadMore}
                     variant="outline"
                     disabled={loading}
-                    className="border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                    className="border-slate-gray text-light-gray hover:bg-slate-gray/20"
                   >
                     {loading ? (
                       <>
                         <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        Loading...
+                        Cargando...
                       </>
                     ) : (
-                      'Load More'
+                      'Cargar Más'
                     )}
                   </Button>
                 </div>
@@ -286,7 +298,7 @@ export default function PaymentsPage() {
 
               {/* Pagination Info */}
               <div className="text-center text-sm text-stormy-weather pt-2">
-                Showing {payments.length} of {pagination.total} payments
+                Mostrando {payments.length} de {pagination.total} pagos
               </div>
             </>
           )}
@@ -296,7 +308,7 @@ export default function PaymentsPage() {
         <Link href="/dashboard/payments/new">
           <Button
             size="icon"
-            className="fixed bottom-20 right-4 h-14 w-14 rounded-full bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty shadow-lg md:bottom-4 z-50"
+            className="fixed bottom-20 right-4 h-14 w-14 rounded-full bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black shadow-lg md:bottom-4 z-50"
           >
             <Plus className="h-6 w-6" />
           </Button>

@@ -114,6 +114,7 @@ export async function POST(request: NextRequest) {
         full_name: body.full_name,
         phone: body.phone,
         email: body.email || null,
+        current_plan_id: body.current_plan_id, // Required plan selection
         birth_date: body.birth_date || null,
         blood_type: body.blood_type || null,
         gender: body.gender || null,

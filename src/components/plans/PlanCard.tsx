@@ -16,17 +16,17 @@ interface PlanCardProps {
 
 export function PlanCard({ plan, onEdit, onToggleStatus }: PlanCardProps) {
   const getDurationText = (days: number) => {
-    if (days === 1) return '1 day';
-    if (days === 7) return '1 week';
-    if (days === 30) return '1 month';
-    if (days === 365) return '1 year';
-    if (days < 30) return `${days} days`;
+    if (days === 1) return '1 día';
+    if (days === 7) return '1 semana';
+    if (days === 30) return '1 mes';
+    if (days === 365) return '1 año';
+    if (days < 30) return `${days} días`;
     if (days < 365) {
       const months = Math.round(days / 30);
-      return `${months} month${months > 1 ? 's' : ''}`;
+      return `${months} mes${months > 1 ? 'es' : ''}`;
     }
     const years = Math.round(days / 365);
-    return `${years} year${years > 1 ? 's' : ''}`;
+    return `${years} año${years > 1 ? 's' : ''}`;
   };
 
   const getDailyRate = () => {
@@ -35,86 +35,86 @@ export function PlanCard({ plan, onEdit, onToggleStatus }: PlanCardProps) {
 
   return (
     <Card className={cn(
-      "bg-midnight-magic border-stormy-weather/30 transition-all duration-200",
-      plan.is_active 
-        ? "hover:border-coastal-vista/30" 
-        : "opacity-60 border-stormy-weather/20"
+      "bg-carbon-gray border-slate-gray/30 transition-all duration-200",
+      plan.is_active
+        ? "hover:border-neon-cyan/30"
+        : "opacity-60 border-slate-gray/20"
     )}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="text-lg font-semibold text-silver-setting">
+              <h3 className="text-lg font-semibold text-bright-white">
                 {plan.name}
               </h3>
-              <Badge 
+              <Badge
                 className={cn(
                   plan.is_active
-                    ? "bg-green-500/10 text-green-400 border-green-500/30"
-                    : "bg-stormy-weather/10 text-stormy-weather border-stormy-weather/30"
+                    ? "bg-electric-lime/10 text-electric-lime border-electric-lime/30"
+                    : "bg-slate-gray/10 text-light-gray border-slate-gray/30"
                 )}
               >
-                {plan.is_active ? 'Active' : 'Inactive'}
+                {plan.is_active ? 'Activo' : 'Inactivo'}
               </Badge>
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <DollarSign className="h-4 w-4 text-coastal-vista" />
-                <span className="text-2xl font-bold text-silver-setting">
+                <DollarSign className="h-4 w-4 text-neon-cyan flex-shrink-0" />
+                <span className="text-2xl font-bold text-bright-white">
                   {formatCurrency(plan.price)}
                 </span>
               </div>
 
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-coastal-vista" />
-                <span className="text-silver-setting">
+                <Clock className="h-4 w-4 text-neon-cyan flex-shrink-0" />
+                <span className="text-bright-white">
                   {getDurationText(plan.duration_days)}
                 </span>
-                <span className="text-sm text-stormy-weather">
-                  ({formatCurrency(getDailyRate())}/day)
+                <span className="text-sm text-light-gray flex-shrink-0">
+                  ({formatCurrency(getDailyRate())}/día)
                 </span>
               </div>
 
               {plan.description && (
-                <p className="text-sm text-stormy-weather mt-2">
+                <p className="text-sm text-light-gray mt-2">
                   {plan.description}
                 </p>
               )}
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 ml-4">
+          <div className="flex flex-col gap-2 ml-4 flex-shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={() => onEdit(plan)}
-              className="border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+              className="border-slate-gray text-light-gray hover:bg-slate-gray/10"
             >
               <Edit className="h-3 w-3 mr-1" />
-              Edit
+              Editar
             </Button>
-            
+
             <Button
               variant="outline"
               size="sm"
               onClick={() => onToggleStatus(plan)}
               className={cn(
-                "border-stormy-weather hover:bg-stormy-weather/10",
+                "border-slate-gray hover:bg-slate-gray/10",
                 plan.is_active
-                  ? "text-red-400 hover:text-red-300"
-                  : "text-green-400 hover:text-green-300"
+                  ? "text-hot-orange hover:text-hot-orange/80"
+                  : "text-electric-lime hover:text-electric-lime/80"
               )}
             >
               {plan.is_active ? (
                 <>
                   <PowerOff className="h-3 w-3 mr-1" />
-                  Deactivate
+                  Desactivar
                 </>
               ) : (
                 <>
                   <Power className="h-3 w-3 mr-1" />
-                  Activate
+                  Activar
                 </>
               )}
             </Button>
@@ -122,21 +122,21 @@ export function PlanCard({ plan, onEdit, onToggleStatus }: PlanCardProps) {
         </div>
 
         {/* Quick Stats */}
-        <div className="mt-4 pt-4 border-t border-stormy-weather/30">
+        <div className="mt-4 pt-4 border-t border-slate-gray/30">
           <div className="grid grid-cols-2 gap-4 text-center">
             <div>
-              <p className="text-xs text-stormy-weather">Value Score</p>
-              <p className="text-sm font-medium text-silver-setting">
-                {plan.duration_days >= 30 ? 'Excellent' : plan.duration_days >= 7 ? 'Good' : 'Basic'}
+              <p className="text-xs text-light-gray">Puntuación de Valor</p>
+              <p className="text-sm font-medium text-bright-white">
+                {plan.duration_days >= 30 ? 'Excelente' : plan.duration_days >= 7 ? 'Bueno' : 'Básico'}
               </p>
             </div>
             <div>
-              <p className="text-xs text-stormy-weather">Plan Type</p>
-              <p className="text-sm font-medium text-silver-setting">
-                {plan.duration_days === 1 ? 'Daily' : 
-                 plan.duration_days === 7 ? 'Weekly' :
-                 plan.duration_days === 30 ? 'Monthly' :
-                 plan.duration_days === 365 ? 'Annual' : 'Custom'}
+              <p className="text-xs text-light-gray">Tipo de Plan</p>
+              <p className="text-sm font-medium text-bright-white">
+                {plan.duration_days === 1 ? 'Diario' :
+                  plan.duration_days === 7 ? 'Semanal' :
+                    plan.duration_days === 30 ? 'Mensual' :
+                      plan.duration_days === 365 ? 'Anual' : 'Personalizado'}
               </p>
             </div>
           </div>

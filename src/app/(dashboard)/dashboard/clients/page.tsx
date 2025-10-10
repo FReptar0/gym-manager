@@ -35,7 +35,7 @@ export default function ClientsPage() {
 
   return (
     <div>
-      <TopBar title="Clients" />
+      <TopBar title="Clientes" />
 
       <div className="p-4 space-y-4">
         {/* Filters */}
@@ -47,42 +47,42 @@ export default function ClientsPage() {
         {/* Client List */}
         <div className="space-y-3">
           {loading && page === 1 ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <Loader2 className="h-6 w-6 animate-spin mx-auto text-coastal-vista" />
-              <p className="text-stormy-weather mt-2">Loading clients...</p>
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <Loader2 className="h-6 w-6 animate-spin mx-auto text-neon-cyan" />
+              <p className="text-light-gray mt-2">Cargando clientes...</p>
             </Card>
           ) : error ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <p className="text-red-400">Error loading clients</p>
-              <p className="text-sm text-stormy-weather/70 mt-2">{error}</p>
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <p className="text-hot-orange">Error al cargar clientes</p>
+              <p className="text-sm text-light-gray/70 mt-2">{error}</p>
               <Button
                 onClick={() => refetch()}
                 variant="outline"
                 size="sm"
-                className="mt-3 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                className="mt-3 border-slate-gray text-light-gray hover:bg-slate-gray/10"
               >
-                Try Again
+                Intentar de Nuevo
               </Button>
             </Card>
           ) : clients.length === 0 ? (
-            <Card className="bg-midnight-magic border-stormy-weather/30 p-8 text-center">
-              <p className="text-stormy-weather">
+            <Card className="bg-carbon-gray border-slate-gray/30 p-8 text-center">
+              <p className="text-light-gray">
                 {filters.search || filters.status !== 'all' || filters.plan_id || filters.expiring_soon
-                  ? 'No clients match your filters'
-                  : 'No clients yet'
+                  ? 'No hay clientes que coincidan con tus filtros'
+                  : 'Aún no hay clientes'
                 }
               </p>
-              <p className="text-sm text-stormy-weather/70 mt-2">
+              <p className="text-sm text-light-gray/70 mt-2">
                 {filters.search || filters.status !== 'all' || filters.plan_id || filters.expiring_soon
-                  ? 'Try adjusting your search or filters'
-                  : 'Add your first client to get started'
+                  ? 'Intenta ajustar tu búsqueda o filtros'
+                  : 'Agrega tu primer cliente para comenzar'
                 }
               </p>
               {!(filters.search || filters.status !== 'all' || filters.plan_id || filters.expiring_soon) && (
                 <Link href="/dashboard/clients/new">
-                  <Button className="mt-4 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty">
+                  <Button className="mt-4 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add First Client
+                    Agregar Primer Cliente
                   </Button>
                 </Link>
               )}
@@ -104,23 +104,23 @@ export default function ClientsPage() {
                     onClick={handleLoadMore}
                     variant="outline"
                     disabled={loading}
-                    className="border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                    className="bg-steel-gray border-slate-gray text-light-gray hover:bg-slate-gray/20"
                   >
                     {loading ? (
                       <>
                         <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        Loading...
+                        Cargando...
                       </>
                     ) : (
-                      'Load More'
+                      'Cargar Más'
                     )}
                   </Button>
                 </div>
               )}
 
               {/* Pagination Info */}
-              <div className="text-center text-sm text-stormy-weather pt-2">
-                Showing {clients.length} of {pagination.total} clients
+              <div className="text-center text-sm text-light-gray pt-2">
+                Mostrando {clients.length} de {pagination.total} clientes
               </div>
             </>
           )}
@@ -130,7 +130,7 @@ export default function ClientsPage() {
         <Link href="/dashboard/clients/new">
           <Button
             size="icon"
-            className="fixed bottom-20 right-4 h-14 w-14 rounded-full bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty shadow-lg md:bottom-4 z-50"
+            className="fixed bottom-20 right-4 h-14 w-14 rounded-full bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black shadow-lg md:bottom-4 z-50"
           >
             <Plus className="h-6 w-6" />
           </Button>

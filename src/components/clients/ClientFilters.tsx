@@ -17,34 +17,34 @@ export function ClientFiltersComponent({ filters, onFiltersChange }: ClientFilte
   const { plans } = usePlans();
 
   const statusOptions = [
-    { value: 'all', label: 'All Clients' },
-    { value: 'active', label: 'Active' },
-    { value: 'frozen', label: 'Expired' },
-    { value: 'inactive', label: 'Inactive' },
+    { value: 'all', label: 'Todos los Clientes' },
+    { value: 'active', label: 'Activos' },
+    { value: 'frozen', label: 'Expirados' },
+    { value: 'inactive', label: 'Inactivos' },
   ];
 
   const filterChips = [
     { 
       key: 'all', 
-      label: 'All', 
+      label: 'Todos', 
       active: !filters.status || filters.status === 'all',
       count: null
     },
     { 
       key: 'active', 
-      label: 'Active', 
+      label: 'Activos', 
       active: filters.status === 'active',
       count: null
     },
     { 
       key: 'frozen', 
-      label: 'Expired', 
+      label: 'Expirados', 
       active: filters.status === 'frozen',
       count: null
     },
     { 
       key: 'expiring_soon', 
-      label: 'Expiring Soon', 
+      label: 'Por Vencer', 
       active: filters.expiring_soon === true,
       count: null
     },
@@ -54,12 +54,12 @@ export function ClientFiltersComponent({ filters, onFiltersChange }: ClientFilte
     <div className="space-y-4">
       {/* Search Bar */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stormy-weather" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-light-gray" />
         <Input
-          placeholder="Search clients by name..."
+          placeholder="Buscar clientes por nombre..."
           value={filters.search || ''}
           onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
-          className="pl-10 bg-midnight-magic border-stormy-weather text-silver-setting placeholder:text-stormy-weather"
+          className="pl-10 bg-steel-gray border-slate-gray text-bright-white placeholder:text-light-gray"
         />
       </div>
 
@@ -82,8 +82,8 @@ export function ClientFiltersComponent({ filters, onFiltersChange }: ClientFilte
             className={cn(
               "shrink-0 transition-colors",
               chip.active
-                ? "bg-coastal-vista/20 border-coastal-vista/30 text-coastal-vista hover:bg-coastal-vista/30"
-                : "border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+                ? "bg-neon-cyan/20 border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/30"
+                : "border-slate-gray text-light-gray hover:bg-slate-gray/20"
             )}
           >
             {chip.label}
@@ -104,19 +104,19 @@ export function ClientFiltersComponent({ filters, onFiltersChange }: ClientFilte
             onFiltersChange({ ...filters, plan_id: value === 'all' ? undefined : value })
           }
         >
-          <SelectTrigger className="w-48 bg-midnight-magic border-stormy-weather text-silver-setting">
+          <SelectTrigger className="w-48 bg-steel-gray border-slate-gray text-bright-white">
             <div className="flex items-center gap-2">
               <Filter className="h-3 w-3" />
-              <SelectValue placeholder="Filter by plan" />
+              <SelectValue placeholder="Filtrar por plan" />
             </div>
           </SelectTrigger>
-          <SelectContent className="bg-midnight-magic border-stormy-weather">
-            <SelectItem value="all" className="text-silver-setting">All Plans</SelectItem>
+          <SelectContent className="bg-carbon-gray border-slate-gray">
+            <SelectItem value="all" className="text-bright-white">Todos los Planes</SelectItem>
             {plans.map((plan) => (
               <SelectItem 
                 key={plan.id} 
                 value={plan.id}
-                className="text-silver-setting hover:bg-stormy-weather/20"
+                className="text-bright-white hover:bg-slate-gray/20"
               >
                 {plan.name}
               </SelectItem>
@@ -129,9 +129,9 @@ export function ClientFiltersComponent({ filters, onFiltersChange }: ClientFilte
             variant="ghost"
             size="sm"
             onClick={() => onFiltersChange({ status: 'all' })}
-            className="text-stormy-weather hover:text-silver-setting hover:bg-stormy-weather/10"
+            className="text-light-gray hover:text-bright-white hover:bg-slate-gray/20"
           >
-            Clear filters
+            Limpiar filtros
           </Button>
         )}
       </div>

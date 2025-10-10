@@ -11,7 +11,6 @@ export default function NewPaymentPage() {
   const clientId = searchParams.get('client_id');
 
   const handleSuccess = (payment: Payment) => {
-    // Navigate to client detail if payment was for specific client, otherwise to payments list
     if (payment.client_id !== '00000000-0000-0000-0000-000000000001') {
       router.push(`/dashboard/clients/${payment.client_id}`);
     } else {

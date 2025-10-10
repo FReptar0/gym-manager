@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { clientSchema, ClientFormData } from '@/lib/utils/validation';
 import { BLOOD_TYPES, GENDER_OPTIONS } from '@/lib/constants';
 import { Client } from '@/types';
-import { useClientMutations } from '@/hooks';
+import { useClientMutations, usePlans } from '@/hooks';
 import { Camera, Upload, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +28,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(client?.photo_url || null);
   const { createClient, updateClient, uploadClientPhoto } = useClientMutations();
+  const { plans } = usePlans();
 
   const {
     register,
@@ -41,6 +42,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       full_name: client.full_name,
       phone: client.phone,
       email: client.email || '',
+      current_plan_id: client.current_plan_id || '',
       birth_date: client.birth_date || '',
       blood_type: (client.blood_type as any) || 'not_specified',
       gender: ((client as any).gender as any) || 'not_specified',
@@ -50,11 +52,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
     } : {
       blood_type: 'not_specified' as any,
       gender: 'not_specified' as any,
+      current_plan_id: '',
     },
   });
 
   const selectedBloodType = watch('blood_type');
   const selectedGender = watch('gender');
+  const selectedPlan = watch('current_plan_id');
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -129,15 +133,15 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Photo Upload */}
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting">Photo</CardTitle>
+          <CardTitle className="text-bright-white">Photo</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center gap-4">
-            <Avatar className="h-20 w-20 border-2 border-stormy-weather/30">
+            <Avatar className="h-20 w-20 border-2 border-slate-gray/30">
               <AvatarImage src={photoPreview || undefined} />
-              <AvatarFallback className="bg-stormy-weather/20 text-silver-setting text-lg">
+              <AvatarFallback className="bg-stormy-weather/20 text-bright-white text-lg">
                 {watch('full_name') ? getInitials(watch('full_name')) : '?'}
               </AvatarFallback>
             </Avatar>
@@ -146,7 +150,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
               <div className="flex gap-2">
                 <Label htmlFor="photo" className="cursor-pointer">
                   <Button type="button" variant="outline" size="sm" asChild>
-                    <span className="border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10">
+                    <span className="border-slate-gray text-light-gray hover:bg-slate-gray/10">
                       <Camera className="h-4 w-4 mr-2" />
                       {photoPreview ? 'Change' : 'Upload'}
                     </span>
@@ -171,7 +175,7 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
                 onChange={handlePhotoChange}
                 className="hidden"
               />
-              <p className="text-xs text-stormy-weather mt-1">
+              <p className="text-xs text-light-gray mt-1">
                 JPG, PNG or WebP. Max 2MB.
               </p>
             </div>
@@ -180,19 +184,19 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       </Card>
 
       {/* Basic Information */}
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting">Basic Information</CardTitle>
+          <CardTitle className="text-bright-white">Basic Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="full_name" className="text-silver-setting">
+            <Label htmlFor="full_name" className="text-bright-white">
               Full Name <span className="text-red-400">*</span>
             </Label>
             <Input
               id="full_name"
               {...register('full_name')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
               placeholder="Enter full name"
             />
             {errors.full_name && (
@@ -201,13 +205,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="phone" className="text-silver-setting">
+            <Label htmlFor="phone" className="text-bright-white">
               Phone <span className="text-red-400">*</span>
             </Label>
             <Input
               id="phone"
               {...register('phone')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
               placeholder="1234567890"
               maxLength={10}
             />
@@ -217,12 +221,12 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="email" className="text-silver-setting">Email</Label>
+            <Label htmlFor="email" className="text-bright-white">Email</Label>
             <Input
               id="email"
               type="email"
               {...register('email')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
               placeholder="email@example.com"
             />
             {errors.email && (
@@ -232,12 +236,12 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="birth_date" className="text-silver-setting">Birth Date</Label>
+              <Label htmlFor="birth_date" className="text-bright-white">Birth Date</Label>
               <Input
                 id="birth_date"
                 type="date"
                 {...register('birth_date')}
-                className="bg-black-beauty border-stormy-weather text-silver-setting"
+                className="bg-steel-gray border-slate-gray text-bright-white"
               />
               {errors.birth_date && (
                 <p className="text-red-400 text-sm mt-1">{errors.birth_date.message}</p>
@@ -245,18 +249,18 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
             </div>
 
             <div>
-              <Label className="text-silver-setting">Gender</Label>
+              <Label className="text-bright-white">Gender</Label>
               <Select value={selectedGender} onValueChange={(value) => setValue('gender', value as any)}>
-                <SelectTrigger className="bg-black-beauty border-stormy-weather text-silver-setting">
+                <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                   <SelectValue placeholder="Select gender" />
                 </SelectTrigger>
-                <SelectContent className="bg-midnight-magic border-stormy-weather">
-                  <SelectItem value="not_specified" className="text-silver-setting">Not specified</SelectItem>
+                <SelectContent className="bg-midnight-magic border-slate-gray">
+                  <SelectItem value="not_specified" className="text-bright-white">Not specified</SelectItem>
                   {GENDER_OPTIONS.map((option) => (
                     <SelectItem
                       key={option.value}
                       value={option.value}
-                      className="text-silver-setting hover:bg-stormy-weather/20"
+                      className="text-bright-white hover:bg-stormy-weather/20"
                     >
                       {option.label}
                     </SelectItem>
@@ -267,18 +271,18 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           </div>
 
           <div>
-            <Label className="text-silver-setting">Blood Type</Label>
+            <Label className="text-bright-white">Blood Type</Label>
             <Select value={selectedBloodType} onValueChange={(value) => setValue('blood_type', value as any)}>
-              <SelectTrigger className="bg-black-beauty border-stormy-weather text-silver-setting">
+              <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                 <SelectValue placeholder="Select blood type" />
               </SelectTrigger>
-              <SelectContent className="bg-midnight-magic border-stormy-weather">
-                <SelectItem value="not_specified" className="text-silver-setting">Not specified</SelectItem>
+              <SelectContent className="bg-midnight-magic border-slate-gray">
+                <SelectItem value="not_specified" className="text-bright-white">Not specified</SelectItem>
                 {BLOOD_TYPES.map((type) => (
                   <SelectItem
                     key={type}
                     value={type}
-                    className="text-silver-setting hover:bg-stormy-weather/20"
+                    className="text-bright-white hover:bg-stormy-weather/20"
                   >
                     {type}
                   </SelectItem>
@@ -289,20 +293,59 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
         </CardContent>
       </Card>
 
-      {/* Medical Information */}
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      {/* Plan Selection */}
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting">Medical Information</CardTitle>
+          <CardTitle className="text-bright-white">Plan de Membresía</CardTitle>
         </CardHeader>
         <CardContent>
           <div>
-            <Label htmlFor="medical_conditions" className="text-silver-setting">
+            <Label className="text-bright-white">
+              Plan Actual <span className="text-red-400">*</span>
+            </Label>
+            <Select value={watch('current_plan_id')} onValueChange={(value) => setValue('current_plan_id', value)}>
+              <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
+                <SelectValue placeholder="Selecciona un plan" />
+              </SelectTrigger>
+              <SelectContent className="bg-midnight-magic border-slate-gray">
+                {plans.filter(plan => plan.is_active).map((plan) => (
+                  <SelectItem
+                    key={plan.id}
+                    value={plan.id}
+                    className="text-bright-white hover:bg-stormy-weather/20"
+                  >
+                    <div className="flex justify-between items-center w-full">
+                      <span>{plan.name}</span>
+                      <span className="text-coastal-vista ml-2">${plan.price}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.current_plan_id && (
+              <p className="text-red-400 text-sm mt-1">{errors.current_plan_id.message}</p>
+            )}
+            <p className="text-xs text-light-gray mt-1">
+              El cliente debe tener un plan asignado para poder registrarse
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Medical Information */}
+      <Card className="bg-carbon-gray border-slate-gray/30">
+        <CardHeader>
+          <CardTitle className="text-bright-white">Medical Information</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div>
+            <Label htmlFor="medical_conditions" className="text-bright-white">
               Medical Conditions
             </Label>
             <Textarea
               id="medical_conditions"
               {...register('medical_conditions')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
               placeholder="Any medical conditions, allergies, or health notes..."
               rows={3}
             />
@@ -314,19 +357,19 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
       </Card>
 
       {/* Emergency Contact */}
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting">Emergency Contact</CardTitle>
+          <CardTitle className="text-bright-white">Emergency Contact</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="emergency_contact_name" className="text-silver-setting">
+            <Label htmlFor="emergency_contact_name" className="text-bright-white">
               Contact Name
             </Label>
             <Input
               id="emergency_contact_name"
               {...register('emergency_contact_name')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
               placeholder="Emergency contact full name"
             />
             {errors.emergency_contact_name && (
@@ -335,13 +378,13 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="emergency_contact_phone" className="text-silver-setting">
+            <Label htmlFor="emergency_contact_phone" className="text-bright-white">
               Contact Phone
             </Label>
             <Input
               id="emergency_contact_phone"
               {...register('emergency_contact_phone')}
-              className="bg-black-beauty border-stormy-weather text-silver-setting"
+              className="bg-steel-gray border-slate-gray text-bright-white"
               placeholder="1234567890"
               maxLength={10}
             />
@@ -358,14 +401,14 @@ export function ClientForm({ client, onSuccess, onCancel }: ClientFormProps) {
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="flex-1 border-stormy-weather text-stormy-weather hover:bg-stormy-weather/10"
+          className="flex-1 border-slate-gray text-light-gray hover:bg-slate-gray/10"
           disabled={loading}
         >
           Cancel
         </Button>
         <Button
           type="submit"
-          className="flex-1 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+          className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
           disabled={loading}
         >
           {loading ? 'Saving...' : client ? 'Update Client' : 'Create Client'}
