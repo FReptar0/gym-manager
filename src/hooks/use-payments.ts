@@ -54,7 +54,7 @@ export function usePayments(options: UsePaymentsOptions = {}) {
       const result: PaginatedResponse<PaymentWithDetails> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch payments');
+        throw new Error(result.error || 'Error al obtener pagos');
       }
 
       setPayments(result.data);
@@ -106,7 +106,7 @@ export function useClientPayments(clientId: string) {
       const result: PaginatedResponse<PaymentWithDetails> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch client payments');
+        throw new Error(result.error || 'Error al obtener pagos del cliente');
       }
 
       setPayments(result.data);
@@ -144,7 +144,7 @@ export function usePaymentMutations() {
       const result: APIResponse<Payment> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to register payment');
+        throw new Error(result.error || 'Error al registrar pago');
       }
 
       return result.data;

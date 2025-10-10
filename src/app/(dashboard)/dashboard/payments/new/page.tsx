@@ -24,7 +24,7 @@ export default function NewPaymentPage() {
 
   return (
     <div className="min-h-screen bg-black-beauty">
-      <TopBar title="Register Payment" showBack />
+      <TopBar title="Registrar Pago" showBack />
 
       <div className="p-4 max-w-2xl mx-auto">
         <PaymentForm

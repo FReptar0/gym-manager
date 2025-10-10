@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { TopBar } from '@/components/layout/TopBar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,9 +30,28 @@ export default function ClientDetailPage() {
   const params = useParams();
   const router = useRouter();
   const clientId = params.id as string;
+  const [clientAge, setClientAge] = useState<number | null>(null);
   
   const { client, loading, error, refetch } = useClient(clientId);
   const { payments, loading: paymentsLoading } = useClientPayments(clientId);
+
+  // Calculate age on client side to avoid hydration issues
+  useEffect(() => {
+    if (client?.birth_date) {
+      const birthDate = new Date(client.birth_date);
+      const today = new Date();
+      const age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        setClientAge(age - 1);
+      } else {
+        setClientAge(age);
+      }
+    } else {
+      setClientAge(null);
+    }
+  }, [client?.birth_date]);
 
   const handleEdit = () => {
     router.push(`/dashboard/clients/${clientId}/edit`);
@@ -214,10 +234,7 @@ export default function ClientDetailPage() {
               <User className="h-6 w-6 mx-auto text-neon-cyan mb-2" />
               <p className="text-xs text-light-gray">Edad</p>
               <p className="text-sm text-bright-white font-medium">
-                {client.birth_date 
-                  ? new Date().getFullYear() - new Date(client.birth_date).getFullYear()
-                  : 'N/A'
-                }
+                {clientAge !== null ? `${clientAge} años` : 'N/A'}
               </p>
             </CardContent>
           </Card>

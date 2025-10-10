@@ -23,18 +23,18 @@ export function useDashboardStats(month?: string) {
       
       if (response.status === 401) {
         // User is not authenticated, redirect will be handled by middleware/auth hook
-        throw new Error('Authentication required');
+        throw new Error('Autenticación requerida');
       }
       
       const result: APIResponse<DashboardStats> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch dashboard stats');
+        throw new Error(result.error || 'Error al obtener estadísticas del dashboard');
       }
 
       setStats(result.data || null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'Ocurrió un error');
       setStats(null);
     } finally {
       setLoading(false);
@@ -72,18 +72,18 @@ export function useRevenueStats(month?: string) {
       
       if (response.status === 401) {
         // User is not authenticated, redirect will be handled by middleware/auth hook
-        throw new Error('Authentication required');
+        throw new Error('Autenticación requerida');
       }
       
       const result: APIResponse<RevenueStats> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch revenue stats');
+        throw new Error(result.error || 'Error al obtener estadísticas de ingresos');
       }
 
       setStats(result.data || null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'Ocurrió un error');
       setStats(null);
     } finally {
       setLoading(false);

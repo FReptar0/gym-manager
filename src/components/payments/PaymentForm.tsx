@@ -56,10 +56,14 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
   } = useForm<PaymentFormData>({
     resolver: zodResolver(paymentSchema),
     defaultValues: {
-      payment_date: new Date().toISOString().split('T')[0],
       payment_method: 'cash',
     },
   });
+
+  // Set payment date on client side to avoid hydration issues
+  useEffect(() => {
+    setValue('payment_date', new Date().toISOString().split('T')[0]);
+  }, [setValue]);
 
   const watchedAmount = watch('amount');
   const watchedPaymentDate = watch('payment_date');
@@ -151,7 +155,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
   const onSubmit = async (data: PaymentFormData) => {
     if (!selectedClient || !selectedPlan || !calculatedPeriod) {
-      alert('Please select a client and plan');
+      alert('Por favor selecciona un cliente y un plan');
       return;
     }
 
@@ -171,7 +175,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
       }
     } catch (error) {
       console.error('Error creating payment:', error);
-      alert(error instanceof Error ? error.message : 'Failed to register payment');
+      alert(error instanceof Error ? error.message : 'Error al registrar pago');
     } finally {
       setLoading(false);
     }
@@ -263,7 +267,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                 className="w-full justify-start border-dashed border-coastal-vista/30 text-neon-cyan hover:bg-coastal-vista/10"
               >
                 <User className="h-4 w-4 mr-2" />
-                Guest / Daily Payment
+                Invitado / Pago Diario
               </Button>
 
               {/* Client Results */}
@@ -380,7 +384,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
             <div>
               <Label htmlFor="payment_date" className="text-bright-white">
-                Payment Date
+                Fecha de Pago
               </Label>
               <Input
                 id="payment_date"
@@ -430,10 +434,10 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
             
             <div className="p-3 bg-coastal-vista/10 border border-coastal-vista/30 rounded-lg">
               <p className="text-sm text-neon-cyan">
-                ✓ This membership will be valid for {selectedPlan.duration_days} days
+                ✓ Esta membresía será válida por {selectedPlan.duration_days} días
                 {selectedClient.expiration_date && new Date(selectedClient.expiration_date) >= new Date() && (
                   <span className="block mt-1">
-                    Extending current membership (expires {formatDate(selectedClient.expiration_date)})
+                    Extendiendo membresía actual (expira {formatDate(selectedClient.expiration_date)})
                   </span>
                 )}
               </p>
@@ -448,14 +452,14 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="flex-1 border-slate-gray text-light-gray hover:bg-stormy-weather/10"
+          className="flex-1 border-slate-gray text-light-gray hover:bg-slate-gray/10"
           disabled={loading}
         >
           Cancelar
         </Button>
         <Button
           type="submit"
-          className="flex-1 bg-coastal-vista hover:bg-coastal-vista/90 text-black-beauty"
+          className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-black-beauty"
           disabled={loading || !selectedClient || !selectedPlan}
         >
           {loading ? 'Procesando...' : `Registrar Pago${watchedAmount ? ` - ${formatCurrency(watchedAmount)}` : ''}`}

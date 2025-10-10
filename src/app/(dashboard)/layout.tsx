@@ -16,7 +16,7 @@ export default function DashboardLayout({
       <div className="min-h-screen bg-deep-black flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto text-neon-cyan" />
-          <p className="text-light-gray mt-2">Loading...</p>
+          <p className="text-light-gray mt-2">Cargando...</p>
         </div>
       </div>
     );

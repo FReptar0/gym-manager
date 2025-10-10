@@ -31,7 +31,7 @@ export default function LoginPage() {
       router.push('/dashboard');
       router.refresh();
     } catch (error: any) {
-      setError(error.message || 'An error occurred during login');
+      setError(error.message || 'Ocurrió un error durante el inicio de sesión');
     } finally {
       setLoading(false);
     }
@@ -54,7 +54,7 @@ export default function LoginPage() {
             <Input
               id="email"
               type="email"
-              placeholder="your@email.com"
+              placeholder="tu@correo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required

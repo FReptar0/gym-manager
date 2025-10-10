@@ -198,24 +198,24 @@ export const STORAGE_KEYS = {
 
 // Error messages
 export const ERROR_MESSAGES = {
-  NETWORK: 'Network error. Please check your connection.',
-  UNAUTHORIZED: 'You are not authorized to perform this action.',
-  FORBIDDEN: 'Access denied.',
-  NOT_FOUND: 'The requested resource was not found.',
-  SERVER_ERROR: 'An unexpected server error occurred.',
-  VALIDATION_ERROR: 'Please check the form for errors.',
-  FILE_TOO_LARGE: 'File size must be less than 2MB.',
-  INVALID_FILE_TYPE: 'Only JPEG, PNG, and WebP images are allowed.',
+  NETWORK: 'Error de red. Por favor verifica tu conexión.',
+  UNAUTHORIZED: 'No estás autorizado para realizar esta acción.',
+  FORBIDDEN: 'Acceso denegado.',
+  NOT_FOUND: 'El recurso solicitado no fue encontrado.',
+  SERVER_ERROR: 'Ocurrió un error inesperado del servidor.',
+  VALIDATION_ERROR: 'Por favor revisa el formulario por errores.',
+  FILE_TOO_LARGE: 'El archivo debe ser menor a 2MB.',
+  INVALID_FILE_TYPE: 'Solo se permiten imágenes JPEG, PNG y WebP.',
 } as const;
 
 // Success messages
 export const SUCCESS_MESSAGES = {
-  CLIENT_CREATED: 'Client created successfully',
-  CLIENT_UPDATED: 'Client updated successfully',
-  CLIENT_DELETED: 'Client deleted successfully',
-  PAYMENT_REGISTERED: 'Payment registered successfully',
-  PAYMENT_UPDATED: 'Payment updated successfully',
-  PLAN_CREATED: 'Plan created successfully',
-  PLAN_UPDATED: 'Plan updated successfully',
-  PLAN_DELETED: 'Plan deactivated successfully',
+  CLIENT_CREATED: 'Cliente creado exitosamente',
+  CLIENT_UPDATED: 'Cliente actualizado exitosamente',
+  CLIENT_DELETED: 'Cliente eliminado exitosamente',
+  PAYMENT_REGISTERED: 'Pago registrado exitosamente',
+  PAYMENT_UPDATED: 'Pago actualizado exitosamente',
+  PLAN_CREATED: 'Plan creado exitosamente',
+  PLAN_UPDATED: 'Plan actualizado exitosamente',
+  PLAN_DELETED: 'Plan desactivado exitosamente',
 } as const;

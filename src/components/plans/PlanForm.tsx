@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -40,7 +40,6 @@ const PRESET_PLANS = [
 export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
   const [loading, setLoading] = useState(false);
   const { createPlan, updatePlan } = usePlanMutations();
-  const t = useTranslations();
 
   const {
     register,
@@ -114,7 +113,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
       onSuccess(savedPlan);
     } catch (error) {
       console.error('Error saving plan:', error);
-      alert(error instanceof Error ? error.message : 'Failed to save plan');
+      alert(error instanceof Error ? error.message : 'Error al guardar plan');
     } finally {
       setLoading(false);
     }
@@ -150,7 +149,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
                         {formatCurrency(preset.price)}
                       </p>
                       <p className="text-xs text-stormy-weather">
-                        {preset.duration_days} day{preset.duration_days > 1 ? 's' : ''}
+                        {preset.duration_days} día{preset.duration_days > 1 ? 's' : ''}
                       </p>
                     </div>
                   </div>
@@ -274,7 +273,7 @@ export function PlanForm({ plan, onSuccess, onCancel }: PlanFormProps) {
               <div className="text-center p-3 bg-black-beauty rounded-lg col-span-2 md:col-span-1">
                 <p className="text-xs text-light-gray">Duración</p>
                 <p className="text-lg font-semibold text-bright-white">
-                  {watchedDuration} day{watchedDuration > 1 ? 's' : ''}
+                  {watchedDuration} día{watchedDuration > 1 ? 's' : ''}
                 </p>
               </div>
             </div>

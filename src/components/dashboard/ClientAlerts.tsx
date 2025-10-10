@@ -41,19 +41,19 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
 
   if (expiringClients.length === 0 && expiredClients.length === 0) {
     return (
-      <Card className="bg-midnight-magic border-stormy-weather/30">
+      <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
-          <CardTitle className="text-silver-setting flex items-center gap-2">
+          <CardTitle className="text-bright-white flex items-center gap-2">
             <Calendar className="h-5 w-5" />
-            Client Alerts
+            Alertas de Clientes
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-center py-6">
-            <Calendar className="h-12 w-12 mx-auto text-stormy-weather/50 mb-3" />
-            <p className="text-stormy-weather">All memberships are up to date</p>
-            <p className="text-sm text-stormy-weather/70 mt-1">
-              No expiring or expired memberships to review
+            <Calendar className="h-12 w-12 mx-auto text-light-gray/50 mb-3" />
+            <p className="text-light-gray">Todas las membresías están al día</p>
+            <p className="text-sm text-light-gray/70 mt-1">
+              No hay membresías por expirar o vencidas para revisar
             </p>
           </div>
         </CardContent>
@@ -62,11 +62,11 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
   }
 
   return (
-    <Card className="bg-midnight-magic border-stormy-weather/30">
+    <Card className="bg-carbon-gray border-slate-gray/30">
       <CardHeader>
-        <CardTitle className="text-silver-setting flex items-center gap-2">
+        <CardTitle className="text-bright-white flex items-center gap-2">
           <Calendar className="h-5 w-5" />
-          Client Alerts
+          Alertas de Clientes
           <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30 ml-auto">
             {expiringClients.length + expiredClients.length}
           </Badge>
@@ -79,7 +79,7 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
             <div className="flex items-center gap-2 mb-3">
               <AlertTriangle className="h-4 w-4 text-red-400" />
               <h4 className="text-sm font-medium text-red-400">
-                Expired ({expiredClients.length})
+                Vencidas ({expiredClients.length})
               </h4>
             </div>
             <div className="space-y-2">
@@ -90,17 +90,17 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
                 >
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={client.photo_url || undefined} />
-                    <AvatarFallback className="bg-stormy-weather/20 text-silver-setting text-sm">
+                    <AvatarFallback className="bg-slate-gray/20 text-bright-white text-sm">
                       {getInitials(client.full_name)}
                     </AvatarFallback>
                   </Avatar>
                   
                   <div className="flex-1 min-w-0">
-                    <p className="text-silver-setting font-medium truncate">
+                    <p className="text-bright-white font-medium truncate">
                       {client.full_name}
                     </p>
                     <p className="text-xs text-red-400">
-                      Expired {client.expiration_date ? formatDateRelative(client.expiration_date) : 'Unknown'}
+                      Venció {client.expiration_date ? formatDateRelative(client.expiration_date) : 'Desconocido'}
                     </p>
                   </div>
                   
@@ -111,13 +111,13 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
                       className="bg-red-500/20 hover:bg-red-500/30 text-red-400 text-xs px-2 h-7"
                     >
                       <CreditCard className="h-3 w-3 mr-1" />
-                      Renew
+                      Renovar
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleClientClick(client.id)}
-                      className="text-stormy-weather hover:text-silver-setting h-7 w-7 p-0"
+                      className="text-light-gray hover:text-bright-white h-7 w-7 p-0"
                     >
                       <ChevronRight className="h-3 w-3" />
                     </Button>
@@ -130,9 +130,9 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
                   variant="ghost"
                   size="sm"
                   onClick={() => router.push('/dashboard/clients?status=frozen')}
-                  className="w-full text-stormy-weather hover:text-silver-setting"
+                  className="w-full text-light-gray hover:text-bright-white"
                 >
-                  View {expiredClients.length - 3} more expired memberships
+                  Ver {expiredClients.length - 3} membresías vencidas más
                 </Button>
               )}
             </div>
@@ -145,7 +145,7 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
             <div className="flex items-center gap-2 mb-3">
               <Calendar className="h-4 w-4 text-yellow-400" />
               <h4 className="text-sm font-medium text-yellow-400">
-                Expiring Soon ({expiringClients.length})
+                Por Vencer ({expiringClients.length})
               </h4>
             </div>
             <div className="space-y-2">
@@ -156,17 +156,17 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
                 >
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={client.photo_url || undefined} />
-                    <AvatarFallback className="bg-stormy-weather/20 text-silver-setting text-sm">
+                    <AvatarFallback className="bg-slate-gray/20 text-bright-white text-sm">
                       {getInitials(client.full_name)}
                     </AvatarFallback>
                   </Avatar>
                   
                   <div className="flex-1 min-w-0">
-                    <p className="text-silver-setting font-medium truncate">
+                    <p className="text-bright-white font-medium truncate">
                       {client.full_name}
                     </p>
                     <p className="text-xs text-yellow-400">
-                      Expires {client.expiration_date ? formatDateRelative(client.expiration_date) : 'Unknown'}
+                      Vence {client.expiration_date ? formatDateRelative(client.expiration_date) : 'Desconocido'}
                     </p>
                   </div>
                   
@@ -177,13 +177,13 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
                       className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 text-xs px-2 h-7"
                     >
                       <CreditCard className="h-3 w-3 mr-1" />
-                      Extend
+                      Extender
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleClientClick(client.id)}
-                      className="text-stormy-weather hover:text-silver-setting h-7 w-7 p-0"
+                      className="text-light-gray hover:text-bright-white h-7 w-7 p-0"
                     >
                       <ChevronRight className="h-3 w-3" />
                     </Button>
@@ -196,9 +196,9 @@ export function ClientAlerts({ expiringClients, expiredClients }: ClientAlertsPr
                   variant="ghost"
                   size="sm"
                   onClick={() => router.push('/dashboard/clients?expiring_soon=true')}
-                  className="w-full text-stormy-weather hover:text-silver-setting"
+                  className="w-full text-light-gray hover:text-bright-white"
                 >
-                  View {expiringClients.length - 3} more expiring memberships
+                  Ver {expiringClients.length - 3} membresías por vencer más
                 </Button>
               )}
             </div>

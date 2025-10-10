@@ -51,13 +51,13 @@ export function useClients(options: UseClientsOptions = {}) {
       const response = await fetch(`/api/clients?${params.toString()}`);
       
       if (response.status === 401) {
-        throw new Error('Authentication required');
+        throw new Error('Autenticación requerida');
       }
       
       const result: PaginatedResponse<ClientWithPlan> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch clients');
+        throw new Error(result.error || 'Error al obtener clientes');
       }
 
       setClients(result.data);
@@ -107,13 +107,13 @@ export function useClient(id: string) {
       const response = await fetch(`/api/clients/${id}`);
       
       if (response.status === 401) {
-        throw new Error('Authentication required');
+        throw new Error('Autenticación requerida');
       }
       
       const result: APIResponse<ClientWithPlan> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch client');
+        throw new Error(result.error || 'Error al obtener cliente');
       }
 
       setClient(result.data || null);
@@ -150,13 +150,13 @@ export function useClientStats() {
       const response = await fetch('/api/clients/stats');
       
       if (response.status === 401) {
-        throw new Error('Authentication required');
+        throw new Error('Autenticación requerida');
       }
       
       const result: APIResponse<ClientStats> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch client stats');
+        throw new Error(result.error || 'Error al obtener estadísticas del cliente');
       }
 
       setStats(result.data || null);
@@ -194,7 +194,7 @@ export function useClientMutations() {
       const result: APIResponse<Client> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to create client');
+        throw new Error(result.error || 'Error al crear cliente');
       }
 
       return result.data;
@@ -214,7 +214,7 @@ export function useClientMutations() {
       const result: APIResponse<Client> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to update client');
+        throw new Error(result.error || 'Error al actualizar cliente');
       }
 
       return result.data;
@@ -232,7 +232,7 @@ export function useClientMutations() {
       const result: APIResponse = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to delete client');
+        throw new Error(result.error || 'Error al eliminar cliente');
       }
 
       return result;

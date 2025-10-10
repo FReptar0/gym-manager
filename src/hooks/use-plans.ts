@@ -24,7 +24,7 @@ export function usePlans(options: UsePlansOptions = {}) {
       const result: APIResponse<Plan[]> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch plans');
+        throw new Error(result.error || 'Error al obtener planes');
       }
 
       setPlans(result.data || []);
@@ -64,7 +64,7 @@ export function usePlan(id: string) {
       const result: APIResponse<Plan> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch plan');
+        throw new Error(result.error || 'Error al obtener plan');
       }
 
       setPlan(result.data || null);
@@ -100,7 +100,7 @@ export function usePlanMutations() {
       const result: APIResponse<Plan> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to create plan');
+        throw new Error(result.error || 'Error al crear plan');
       }
 
       return result.data;
@@ -120,7 +120,7 @@ export function usePlanMutations() {
       const result: APIResponse<Plan> = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to update plan');
+        throw new Error(result.error || 'Error al actualizar plan');
       }
 
       return result.data;
@@ -138,7 +138,7 @@ export function usePlanMutations() {
       const result: APIResponse = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to delete plan');
+        throw new Error(result.error || 'Error al eliminar plan');
       }
 
       return result;
