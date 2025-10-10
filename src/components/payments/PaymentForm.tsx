@@ -66,6 +66,11 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
   const watchedAmount = watch('amount');
   const watchedPaymentDate = watch('payment_date');
+  const watchedPaymentMethod = watch('payment_method');
+  const watchedClientId = watch('client_id');
+  const watchedPlanId = watch('plan_id');
+  
+
 
   // Load selected client if provided
   useEffect(() => {
@@ -74,14 +79,15 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
       if (client) {
         setSelectedClient(client);
         setShowClientSearch(false);
+        setValue('client_id', client.id, { shouldValidate: true });
         
         // Set default plan to client's current plan
         if (client.current_plan_id) {
           const plan = plans.find(p => p.id === client.current_plan_id);
           if (plan) {
             setSelectedPlan(plan);
-            setValue('plan_id', plan.id);
-            setValue('amount', plan.price);
+            setValue('plan_id', plan.id, { shouldValidate: true });
+            setValue('amount', plan.price, { shouldValidate: true });
           }
         }
       }
@@ -119,7 +125,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
   const handleClientSelect = (client: Client) => {
     setSelectedClient(client);
-    setValue('client_id', client.id);
+    setValue('client_id', client.id, { shouldValidate: true });
     setShowClientSearch(false);
     setClientSearch('');
     
@@ -128,8 +134,8 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
       const plan = plans.find(p => p.id === client.current_plan_id);
       if (plan) {
         setSelectedPlan(plan);
-        setValue('plan_id', plan.id);
-        setValue('amount', plan.price);
+        setValue('plan_id', plan.id, { shouldValidate: true });
+        setValue('amount', plan.price, { shouldValidate: true });
       }
     }
   };
@@ -138,8 +144,8 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
     const plan = plans.find(p => p.id === planId);
     if (plan) {
       setSelectedPlan(plan);
-      setValue('plan_id', planId);
-      setValue('amount', plan.price);
+      setValue('plan_id', planId, { shouldValidate: true });
+      setValue('amount', plan.price, { shouldValidate: true });
     }
   };
 
@@ -169,6 +175,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
       };
 
       const payment = await createPayment(paymentData);
+      
       if (payment) {
         onSuccess(payment);
       }
@@ -181,7 +188,20 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" autoComplete="off">
+    <form 
+      onSubmit={handleSubmit(
+        onSubmit,
+        (errors) => {
+          console.error('Errores de validación del formulario:', errors);
+          alert('Por favor revisa los campos del formulario. Hay errores de validación.');
+        }
+      )} 
+      className="space-y-6" 
+      autoComplete="off"
+    >
+      {/* Hidden fields for proper form registration */}
+      <input type="hidden" {...register('client_id')} />
+      <input type="hidden" {...register('plan_id')} />
       {/* Client Selection */}
       <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
@@ -362,8 +382,19 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
               </div>
 
               <div>
-                <Label className="text-bright-white">Método de Pago</Label>
-                <Select value={watch('payment_method')} onValueChange={(value) => setValue('payment_method', value as any)}>
+                <Label className="text-bright-white">
+                  Método de Pago <span className="text-red-400">*</span>
+                </Label>
+                <input 
+                  type="hidden" 
+                  {...register('payment_method')} 
+                />
+                <Select 
+                  value={watch('payment_method')} 
+                  onValueChange={(value) => {
+                    setValue('payment_method', value as any, { shouldValidate: true });
+                  }}
+                >
                   <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                     <SelectValue placeholder="Seleccionar método" />
                   </SelectTrigger>
@@ -460,6 +491,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
         >
           Cancelar
         </Button>
+
         <Button
           type="submit"
           className="flex-1 bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black"
