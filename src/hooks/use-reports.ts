@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { DashboardStats, RevenueStats, APIResponse } from '@/types';
+import { DashboardStats, RevenueStats, TodayStats, APIResponse } from '@/types';
 import { getCurrentMonth } from '@/lib/utils/date';
 
 export function useDashboardStats(month?: string) {
@@ -89,6 +89,49 @@ export function useRevenueStats(month?: string) {
       setLoading(false);
     }
   }, [currentMonth]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
+
+  return {
+    stats,
+    loading,
+    error,
+    refetch: fetchStats,
+  };
+}
+
+export function useTodayStats() {
+  const [stats, setStats] = useState<TodayStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchStats = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch('/api/reports/today');
+      
+      if (response.status === 401) {
+        throw new Error('Autenticación requerida');
+      }
+      
+      const result: APIResponse<TodayStats> = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al obtener estadísticas de hoy');
+      }
+
+      setStats(result.data || null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ocurrió un error');
+      setStats(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchStats();

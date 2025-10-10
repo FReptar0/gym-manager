@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { KPICard } from '@/components/dashboard/KPICard';
 import { RevenueChart } from '@/components/dashboard/RevenueChart';
 import { ClientAlerts } from '@/components/dashboard/ClientAlerts';
-import { useDashboardStats } from '@/hooks';
+import { useDashboardStats, useTodayStats } from '@/hooks';
 import Link from 'next/link';
 import { 
   TrendingUp, 
@@ -26,6 +26,11 @@ export default function DashboardPage() {
     loading, 
     error 
   } = useDashboardStats();
+  
+  const { 
+    stats: todayStats, 
+    loading: todayLoading 
+  } = useTodayStats();
   
   // Mock data for now - will be implemented with actual hooks later
   const revenueData: { date: string; revenue: number }[] = [];
@@ -150,7 +155,7 @@ export default function DashboardPage() {
             <CardTitle className="text-bright-white">Acciones Rápidas</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <Link href="/dashboard/payments/new">
                 <Button className="w-full bg-neon-cyan hover:bg-neon-cyan/90 text-deep-black">
                   <DollarSign className="h-4 w-4 mr-2" />
@@ -169,12 +174,6 @@ export default function DashboardPage() {
                   Gestionar Planes
                 </Button>
               </Link>
-              <Link href="/dashboard/reports">
-                <Button variant="outline" className="w-full border-slate-gray text-light-gray hover:bg-slate-gray/10">
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  Reportes
-                </Button>
-              </Link>
             </div>
           </CardContent>
         </Card>
@@ -191,19 +190,19 @@ export default function DashboardPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-2xl font-bold text-bright-white">
-                  $0
+                  {todayLoading ? '...' : `$${todayStats?.todays_revenue?.toLocaleString() || 0}`}
                 </p>
                 <p className="text-xs text-light-gray">Ingresos de Hoy</p>
               </div>
               <div>
                 <p className="text-2xl font-bold text-bright-white">
-                  0
+                  {todayLoading ? '...' : todayStats?.todays_payments || 0}
                 </p>
                 <p className="text-xs text-light-gray">Pagos</p>
               </div>
               <div className="col-span-2 md:col-span-1">
                 <p className="text-2xl font-bold text-bright-white">
-                  0
+                  {todayLoading ? '...' : todayStats?.todays_registrations || 0}
                 </p>
                 <p className="text-xs text-light-gray">Nuevos Registros</p>
               </div>

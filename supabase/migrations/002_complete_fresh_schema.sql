@@ -180,7 +180,7 @@ CREATE INDEX idx_payments_date ON payments(payment_date);
 CREATE INDEX idx_payments_client ON payments(client_id);
 CREATE INDEX idx_payments_plan ON payments(plan_id);
 CREATE INDEX idx_payments_period ON payments(period_start, period_end);
-CREATE idx_payments_method ON payments(payment_method);
+CREATE INDEX idx_payments_method ON payments(payment_method);
 CREATE INDEX idx_payments_amount ON payments(amount);
 
 -- Measurements indexes

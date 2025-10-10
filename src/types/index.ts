@@ -41,6 +41,12 @@ export interface DashboardStats {
   client_growth_percentage: number;
 }
 
+export interface TodayStats {
+  todays_revenue: number;
+  todays_payments: number;
+  todays_registrations: number;
+}
+
 export interface DashboardAlert {
   type: 'expiring_today' | 'expiring_soon' | 'overdue';
   count: number;
