@@ -16,8 +16,7 @@ import { PAYMENT_METHOD_LABELS } from '@/lib/constants';
 import { Client, Plan, Payment } from '@/types';
 import { usePaymentMutations, useClients, usePlans } from '@/hooks';
 import { formatCurrency, formatDate, addDays } from '@/lib/utils';
-import { Search, User, CreditCard, Calendar, DollarSign, Calculator } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Search, User, CreditCard, DollarSign, Calculator } from 'lucide-react';
 
 interface PaymentFormProps {
   selectedClientId?: string;
@@ -282,7 +281,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                     >
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={client.photo_url || undefined} />
-                        <AvatarFallback className="bg-slate-gray/20 text-bright-white text-sm"
+                        <AvatarFallback className="bg-slate-gray/20 text-bright-white text-sm">
                           {getInitials(client.full_name)}
                         </AvatarFallback>
                       </Avatar>
