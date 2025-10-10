@@ -26,8 +26,14 @@ export const clientSchema = z.object({
   ]).optional(),
 
   current_plan_id: z.string()
-    .uuid('ID de plan inválido')
-    .min(1, 'Debe seleccionar un plan'),
+    .min(1, 'Debe seleccionar un plan')
+    .refine((val) => {
+      // Allow empty string during form initialization
+      if (val === '') return false;
+      // Validate UUID format for non-empty values
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(val);
+    }, 'Debe seleccionar un plan válido'),
 
   birth_date: z.union([
     z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha debe estar en formato YYYY-MM-DD'),
@@ -94,10 +100,20 @@ export type PlanFormData = z.infer<typeof planSchema>;
 // Payment validation schema
 export const paymentSchema = z.object({
   client_id: z.string()
-    .uuid('ID de cliente inválido'),
+    .min(1, 'Debe seleccionar un cliente')
+    .refine((val) => {
+      if (val === '') return false;
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(val);
+    }, 'Debe seleccionar un cliente válido'),
 
   plan_id: z.string()
-    .uuid('ID de plan inválido'),
+    .min(1, 'Debe seleccionar un plan')
+    .refine((val) => {
+      if (val === '') return false;
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(val);
+    }, 'Debe seleccionar un plan válido'),
 
   amount: z.number()
     .min(0.01, 'El monto debe ser mayor a 0')
@@ -120,7 +136,12 @@ export type PaymentFormData = z.infer<typeof paymentSchema>;
 // Measurement validation schema
 export const measurementSchema = z.object({
   client_id: z.string()
-    .uuid('ID de cliente inválido'),
+    .min(1, 'Debe seleccionar un cliente')
+    .refine((val) => {
+      if (val === '') return false;
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(val);
+    }, 'Debe seleccionar un cliente válido'),
 
   measurement_date: z.string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'La fecha de medición debe estar en formato YYYY-MM-DD'),
@@ -171,13 +192,25 @@ export type MeasurementFormData = z.infer<typeof measurementSchema>;
 export const clientFiltersSchema = z.object({
   search: z.string().optional(),
   status: z.enum(['all', 'active', 'frozen', 'inactive']).default('all'),
-  plan_id: z.string().uuid().optional(),
+  plan_id: z.string().optional().refine((val) => {
+    if (!val || val === '') return true;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(val);
+  }, 'ID de plan inválido'),
   expiring_soon: z.boolean().optional(),
 });
 
 export const paymentFiltersSchema = z.object({
-  client_id: z.string().uuid().optional(),
-  plan_id: z.string().uuid().optional(),
+  client_id: z.string().optional().refine((val) => {
+    if (!val || val === '') return true;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(val);
+  }, 'ID de cliente inválido'),
+  plan_id: z.string().optional().refine((val) => {
+    if (!val || val === '') return true;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(val);
+  }, 'ID de plan inválido'),
   payment_method: z.enum(['cash', 'transfer']).optional(),
   date_from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   date_to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),

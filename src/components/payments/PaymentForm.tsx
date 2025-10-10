@@ -181,7 +181,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" autoComplete="off">
       {/* Client Selection */}
       <Card className="bg-carbon-gray border-slate-gray/30">
         <CardHeader>
@@ -350,9 +350,10 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                     type="number"
                     step="0.01"
                     min="0"
-                    {...register('amount')}
+                    {...register('amount', { valueAsNumber: true })}
                     className="pl-10 bg-steel-gray border-slate-gray text-bright-white"
                     placeholder="0.00"
+                    autoComplete="off"
                   />
                 </div>
                 {errors.amount && (
@@ -362,7 +363,7 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
 
               <div>
                 <Label className="text-bright-white">Método de Pago</Label>
-                <Select onValueChange={(value) => setValue('payment_method', value as any)}>
+                <Select value={watch('payment_method')} onValueChange={(value) => setValue('payment_method', value as any)}>
                   <SelectTrigger className="bg-steel-gray border-slate-gray text-bright-white">
                     <SelectValue placeholder="Seleccionar método" />
                   </SelectTrigger>
@@ -378,6 +379,9 @@ export function PaymentForm({ selectedClientId, onSuccess, onCancel }: PaymentFo
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.payment_method && (
+                  <p className="text-red-400 text-sm mt-1">{errors.payment_method.message}</p>
+                )}
               </div>
             </div>
 
