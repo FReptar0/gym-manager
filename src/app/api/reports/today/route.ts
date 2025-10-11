@@ -13,10 +13,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get today's date in YYYY-MM-DD format
+    // Get today's date in Mexico City timezone (Central Time CDMX)
+    // CDMX uses UTC-6 (CST) and UTC-5 (CDT during daylight saving)
+    const timezoneOffset = parseInt(process.env.BUSINESS_TIMEZONE_OFFSET || '-6');
     const now = new Date();
-    const today = format(now, 'yyyy-MM-dd');
-    const tomorrow = format(new Date(now.getTime() + 24 * 60 * 60 * 1000), 'yyyy-MM-dd');
+    const localTime = new Date(now.getTime() + (timezoneOffset * 60 * 60 * 1000));
+    const today = format(localTime, 'yyyy-MM-dd');
+    const tomorrow = format(new Date(localTime.getTime() + 24 * 60 * 60 * 1000), 'yyyy-MM-dd');
+    console.log('UTC time:', format(now, 'yyyy-MM-dd HH:mm'), 'Local time:', format(localTime, 'yyyy-MM-dd HH:mm'));
     console.log('Today date for API:', today, 'Tomorrow:', tomorrow);
     
     // Today's revenue from payments
